@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import './styles/App.css';
 
@@ -39,11 +38,10 @@ function App() {
   });
 
   // Personalização visual
-  const [color, setColor] = useState('#4a90e2'); // cor principal
-  const [font, setFont] = useState("'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"); // fonte
-  const [theme, setTheme] = useState('light'); // light ou dark
+  const [color, setColor] = useState('#4a90e2');
+  const [font, setFont] = useState("'Segoe UI', Tahoma, Geneva, Verdana, sans-serif");
+  const [theme, setTheme] = useState('light');
 
-  // Atualiza variáveis CSS e classe body quando mudar cor, fonte ou tema
   useEffect(() => {
     document.documentElement.style.setProperty('--cor-principal', color);
     document.documentElement.style.setProperty('--fonte-principal', font);
@@ -55,7 +53,6 @@ function App() {
     }
   }, [color, font, theme]);
 
-  // Função genérica para atualizar campos simples
   const updateField = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
