@@ -1,9 +1,9 @@
 // src/components/ObjectiveForm.jsx
 import React from 'react';
 
-function ObjectiveForm({ formData, setFormData }) {
+function ObjectiveForm({ formData, updateField }) {
   const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, objetivo: e.target.value }));
+    updateField('objetivo', e.target.value);
   };
 
   return (
