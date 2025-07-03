@@ -25,6 +25,29 @@ function ExperienceForm({ formData, setFormData }) {
     setFormData(prev => ({ ...prev, experienciasProfissionais: newExperiences }));
   };
 
+  const buttonStyle = {
+    borderRadius: '8px',
+    padding: '0.7rem 1.2rem',
+    fontSize: '1rem',
+    cursor: 'pointer',
+    border: 'none',
+    transition: 'background-color 0.3s ease',
+  };
+
+  const addButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: 'var(--cor-principal)',
+    color: '#fff',
+    marginTop: '1rem',
+  };
+
+  const removeButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: '#d9534f',
+    color: '#fff',
+    marginTop: '0.5rem',
+  };
+
   return (
     <section>
       <h2>Experiência Profissional</h2>
@@ -72,7 +95,9 @@ function ExperienceForm({ formData, setFormData }) {
           <button
             type="button"
             onClick={() => removeExperience(i)}
-            style={{ backgroundColor: '#d9534f', marginTop: '0.5rem' }}
+            style={removeButtonStyle}
+            onMouseOver={e => e.currentTarget.style.backgroundColor = '#c9302c'}
+            onMouseOut={e => e.currentTarget.style.backgroundColor = '#d9534f'}
           >
             Remover
           </button>
@@ -82,7 +107,9 @@ function ExperienceForm({ formData, setFormData }) {
       <button
         type="button"
         onClick={addExperience}
-        style={{ marginTop: '1rem' }}
+        style={addButtonStyle}
+        onMouseOver={e => e.currentTarget.style.backgroundColor = '#356ac3'}
+        onMouseOut={e => e.currentTarget.style.backgroundColor = 'var(--cor-principal)'}
       >
         Adicionar Experiência
       </button>
