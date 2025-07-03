@@ -7,6 +7,7 @@
 
   --fonte-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
+  /* Variáveis para modo escuro (default - não ativado aqui) */
   --cor-fundo-dark: #121212;
   --cor-texto-dark: #eee;
   --cor-borda-dark: #444;
@@ -19,11 +20,23 @@ body {
   margin: 0;
   padding: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
+
+  /* Definindo as variáveis usadas pelos componentes para modo claro */
+  --cor-fundo: var(--cor-fundo);
+  --cor-texto: var(--cor-texto);
+  --cor-principal: var(--cor-principal);
+  --cor-borda: var(--cor-borda);
 }
 
 body.dark-mode {
   background-color: var(--cor-fundo-dark);
   color: var(--cor-texto-dark);
+
+  /* Atualiza as variáveis para o modo escuro */
+  --cor-fundo: #1e1e1e;
+  --cor-texto: #eaeaea;
+  --cor-principal: #4a90e2; /* pode ajustar se quiser uma cor principal diferente no dark */
+  --cor-borda: var(--cor-borda-dark);
 }
 
 .app-container {
@@ -33,7 +46,8 @@ body.dark-mode {
   background-color: var(--cor-fundo);
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  color: var(--cor-texto);
 }
 
 h1 {
@@ -66,6 +80,9 @@ select {
   font-family: inherit;
   width: 200px;
   cursor: pointer;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 input[type="checkbox"] {
@@ -92,10 +109,12 @@ input, textarea {
   font-size: 1rem;
   border-radius: 6px;
   border: 1.5px solid var(--cor-borda);
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, background-color 0.3s ease, color 0.3s ease;
   font-family: inherit;
   width: 100%;
   box-sizing: border-box;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
 }
 
 input:focus, textarea:focus {
@@ -193,31 +212,4 @@ button:hover {
   .resume-preview li {
     font-size: 0.95rem;
   }
-}
-body {
-  background-color: #f9f9f9;
-  font-family: var(--fonte-principal);
-  margin: 0;
-  color: #222;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-body.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
-}
-
-.app-container {
-  padding: 2rem;
-  max-width: 1000px;
-  margin: auto;
-}
-
-h1 {
-  text-align: center;
-  color: var(--cor-principal);
-}
-
-.dark-mode .app-container {
-  color: #f1f1f1;
 }
