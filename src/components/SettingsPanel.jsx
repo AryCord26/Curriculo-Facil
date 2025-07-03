@@ -1,4 +1,3 @@
-// src/components/SettingsPanel.jsx
 import React from 'react';
 
 const cores = {
@@ -21,21 +20,13 @@ function SettingsPanel({ theme, setTheme, color, setColor, font, setFont }) {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
-  const handleColorChange = (e) => {
-    setColor(e.target.value);
-  };
-
-  const handleFontChange = (e) => {
-    setFont(e.target.value);
-  };
-
   return (
-    <section style={{ marginBottom: '2rem' }}>
+    <section>
       <h2>Personalize seu currículo</h2>
 
       <label>
         Cor principal:
-        <select value={color} onChange={handleColorChange}>
+        <select value={color} onChange={e => setColor(e.target.value)}>
           {Object.entries(cores).map(([nome, hex]) => (
             <option key={nome} value={hex}>{nome}</option>
           ))}
@@ -44,19 +35,15 @@ function SettingsPanel({ theme, setTheme, color, setColor, font, setFont }) {
 
       <label>
         Fonte:
-        <select value={font} onChange={handleFontChange}>
+        <select value={font} onChange={e => setFont(e.target.value)}>
           {Object.entries(fontes).map(([nome, css]) => (
             <option key={nome} value={css}>{nome}</option>
           ))}
         </select>
       </label>
 
-      <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem' }}>
-        <input
-          type="checkbox"
-          checked={theme === 'dark'}
-          onChange={toggleDarkMode}
-        />
+      <label style={{ marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <input type="checkbox" checked={theme === 'dark'} onChange={toggleDarkMode} />
         Modo Escuro
       </label>
     </section>
