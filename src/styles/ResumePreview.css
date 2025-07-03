@@ -1,0 +1,25 @@
+.resume-preview {
+  padding: 1.5rem;
+  margin-top: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--bg-resume);
+  color: var(--text-resume);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.experience-block {
+  margin-bottom: 1rem;
+}
+
+:root {
+  --bg-resume: #ffffff;
+  --text-resume: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-resume: #1e1e1e;
+    --text-resume: #f1f1f1;
+  }
+}
