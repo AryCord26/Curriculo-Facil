@@ -7,7 +7,7 @@
 
   --fonte-principal: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-  /* Variáveis para modo escuro (default - não ativado aqui) */
+  /* Variáveis para modo escuro */
   --cor-fundo-dark: #121212;
   --cor-texto-dark: #eee;
   --cor-borda-dark: #444;
@@ -21,7 +21,7 @@ body {
   padding: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
 
-  /* Definindo as variáveis usadas pelos componentes para modo claro */
+  /* Variáveis para componentes em modo claro */
   --cor-fundo: var(--cor-fundo);
   --cor-texto: var(--cor-texto);
   --cor-principal: var(--cor-principal);
@@ -32,10 +32,10 @@ body.dark-mode {
   background-color: var(--cor-fundo-dark);
   color: var(--cor-texto-dark);
 
-  /* Atualiza as variáveis para o modo escuro */
+  /* Atualiza variáveis para modo escuro */
   --cor-fundo: #1e1e1e;
   --cor-texto: #eaeaea;
-  --cor-principal: #4a90e2; /* pode ajustar se quiser uma cor principal diferente no dark */
+  --cor-principal: #4a90e2;
   --cor-borda: var(--cor-borda-dark);
 }
 
@@ -122,6 +122,7 @@ input:focus, textarea:focus {
   border-color: var(--cor-principal);
 }
 
+/* Botão padrão */
 button {
   background-color: var(--cor-principal);
   color: white;
@@ -136,6 +137,34 @@ button {
 
 button:hover {
   background-color: #356ac3;
+}
+
+/* Botão específico para "Adicionar Formação" */
+.btn-add-formation {
+  background-color: var(--cor-principal);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-add-formation:hover {
+  background-color: #356ac3;
+}
+
+/* Modo escuro para botões */
+body.dark-mode button,
+body.dark-mode .btn-add-formation {
+  background-color: var(--cor-principal);
+  color: white;
+}
+
+body.dark-mode button:hover,
+body.dark-mode .btn-add-formation:hover {
+  background-color: #2a5fa1;
 }
 
 /* === ResumePreview === */
