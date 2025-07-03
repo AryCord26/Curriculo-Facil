@@ -58,7 +58,7 @@ function App() {
   };
 
   return (
-    <div className="app-container">
+    <div className={`app-container ${theme === 'dark' ? 'dark' : 'light'}`}>
       <h1>Crie seu primeiro currículo</h1>
 
       <SettingsPanel
