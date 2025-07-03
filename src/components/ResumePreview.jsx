@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaGraduationCap, FaBriefcase, FaCertificate, FaBook, FaGlobe } from 'react-icons/fa';
+import '../styles/ResumePreview.css'; // Importa o CSS com suporte a temas
 
 function ResumePreview({ data }) {
   const {
@@ -46,10 +47,8 @@ function ResumePreview({ data }) {
         <>
           <h3><FaBriefcase /> Experiência Profissional</h3>
           {experienciasProfissionais.map((exp, i) => (
-            <div key={i} style={{ marginBottom: '1rem' }}>
-              <p>
-                <strong>{exp.cargo}</strong> - {exp.empresa} ({exp.periodo})
-              </p>
+            <div key={i} className="experience-block">
+              <p><strong>{exp.cargo}</strong> - {exp.empresa} ({exp.periodo})</p>
               <p>{exp.descricao}</p>
             </div>
           ))}
@@ -60,10 +59,8 @@ function ResumePreview({ data }) {
         <>
           <h3><FaBriefcase /> Experiência Acadêmica</h3>
           {experienciasAcademicas.map((exp, i) => (
-            <div key={i} style={{ marginBottom: '1rem' }}>
-              <p>
-                <strong>{exp.atividade}</strong> - {exp.instituicao}
-              </p>
+            <div key={i} className="experience-block">
+              <p><strong>{exp.atividade}</strong> - {exp.instituicao}</p>
               <p>{exp.descricao}</p>
             </div>
           ))}
