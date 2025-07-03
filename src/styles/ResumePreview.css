@@ -1,8 +1,18 @@
+:root {
+  --bg-resume: #ffffff;
+  --text-resume: #000000;
+}
+
+body.dark-mode {
+  --bg-resume: #1e1e1e;
+  --text-resume: #eaeaea;
+}
+
 .resume-preview {
-  padding: 1.5rem;
+  padding: 2rem;
   margin-top: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   background-color: var(--bg-resume);
   color: var(--text-resume);
   transition: background-color 0.3s, color 0.3s;
@@ -10,31 +20,4 @@
 
 .experience-block {
   margin-bottom: 1rem;
-}
-
-:root {
-  --bg-resume: #ffffff;
-  --text-resume: #000000;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-resume: #1e1e1e;
-    --text-resume: #f1f1f1;
-  }
-}
-.resume-preview {
-  background-color: #fff;
-  color: #000;
-  padding: 2rem;
-  border-radius: 10px;
-  margin-top: 2rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s, color 0.3s;
-}
-
-/* Estilo para modo escuro */
-body.dark-mode .resume-preview {
-  background-color: #1e1e1e;
-  color: #eaeaea;
 }
