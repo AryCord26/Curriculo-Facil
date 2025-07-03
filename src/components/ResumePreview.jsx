@@ -1,5 +1,6 @@
 // src/components/ResumePreview.jsx
 import React from 'react';
+import { FaGraduationCap, FaBriefcase, FaCertificate, FaBook, FaGlobe } from 'react-icons/fa';
 
 function ResumePreview({ data }) {
   const {
@@ -8,32 +9,36 @@ function ResumePreview({ data }) {
     telefone,
     linkedin,
     objetivo,
-    formacoes,
-    experienciasProfissionais,
-    experienciasAcademicas,
-    cursos,
-    certificados,
+    formacoes = [],
+    experienciasProfissionais = [],
+    experienciasAcademicas = [],
+    cursos = [],
+    certificados = [],
     habilidades,
-    idiomas,
+    idiomas = {},
   } = data;
 
   return (
-    <div className="resume-preview" style={{ background: '#fff', padding: '1rem', marginTop: '2rem', borderRadius: '6px', boxShadow: '0 0 10px rgba(0,0,0,0.1)' }}>
-      <h2>{nome || 'Seu Nome Aqui'}</h2>
-      <p>
+    <div className="resume-preview" style={{ backgroundColor: 'var(--cor-fundo)', color: 'var(--cor-texto)', padding: '1.5rem 2rem', marginTop: '2rem', borderRadius: '10px', boxShadow: '0 0 15px rgba(0,0,0,0.1)', fontFamily: 'var(--fonte-principal)' }}>
+      <h2 style={{ color: 'var(--cor-principal)', marginBottom: '0.3rem' }}>{nome || 'Seu Nome Aqui'}</h2>
+      <p style={{ marginBottom: '1rem' }}>
         Email: {email || 'email@exemplo.com'} | Tel: {telefone || '(xx) xxxxx-xxxx'} | LinkedIn: {linkedin || 'linkedin.com/in/seu-nome'}
       </p>
 
       {objetivo && (
         <>
-          <h3>Objetivo</h3>
+          <h3 style={{ color: 'var(--cor-principal)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <FaBook /> Objetivo
+          </h3>
           <p>{objetivo}</p>
         </>
       )}
 
       {formacoes.length > 0 && (
         <>
-          <h3>Formação Acadêmica</h3>
+          <h3 style={{ color: 'var(--cor-principal)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <FaGraduationCap /> Formação Acadêmica
+          </h3>
           {formacoes.map((f, i) => (
             <p key={i}>
               <strong>{f.curso}</strong> - {f.instituicao} ({f.anoConclusao})
@@ -44,9 +49,11 @@ function ResumePreview({ data }) {
 
       {experienciasProfissionais.length > 0 && (
         <>
-          <h3>Experiência Profissional</h3>
+          <h3 style={{ color: 'var(--cor-principal)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <FaBriefcase /> Experiência Profissional
+          </h3>
           {experienciasProfissionais.map((exp, i) => (
-            <div key={i}>
+            <div key={i} style={{ marginBottom: '1rem' }}>
               <p>
                 <strong>{exp.cargo}</strong> - {exp.empresa} ({exp.periodo})
               </p>
@@ -58,9 +65,11 @@ function ResumePreview({ data }) {
 
       {experienciasAcademicas.length > 0 && (
         <>
-          <h3>Experiência Acadêmica</h3>
+          <h3 style={{ color: 'var(--cor-principal)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <FaBriefcase /> Experiência Acadêmica
+          </h3>
           {experienciasAcademicas.map((exp, i) => (
-            <div key={i}>
+            <div key={i} style={{ marginBottom: '1rem' }}>
               <p>
                 <strong>{exp.atividade}</strong> - {exp.instituicao}
               </p>
@@ -72,7 +81,9 @@ function ResumePreview({ data }) {
 
       {cursos.length > 0 && (
         <>
-          <h3>Cursos</h3>
+          <h3 style={{ color: 'var(--cor-principal)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <FaBook /> Cursos
+          </h3>
           <ul>
             {cursos.map((curso, i) => (
               <li key={i}>
@@ -85,7 +96,9 @@ function ResumePreview({ data }) {
 
       {certificados.length > 0 && (
         <>
-          <h3>Certificados</h3>
+          <h3 style={{ color: 'var(--cor-principal)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <FaCertificate /> Certificados
+          </h3>
           <ul>
             {certificados.map((cert, i) => (
               <li key={i}>
@@ -98,21 +111,23 @@ function ResumePreview({ data }) {
 
       {habilidades && (
         <>
-          <h3>Habilidades Técnicas</h3>
+          <h3 style={{ color: 'var(--cor-principal)' }}>Habilidades Técnicas</h3>
           <p>{habilidades}</p>
         </>
       )}
 
       {idiomas && (
         <>
-          <h3>Idiomas e Conhecimentos</h3>
+          <h3 style={{ color: 'var(--cor-principal)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <FaGlobe /> Idiomas e Conhecimentos
+          </h3>
           <ul>
-            <li>Inglês: {idiomas.ingles}</li>
-            <li>Espanhol: {idiomas.espanhol}</li>
-            <li>Francês: {idiomas.frances}</li>
-            <li>Outros: {idiomas.outros}</li>
-            <li>Pacote Office: {idiomas.pacoteOffice}</li>
-            <li>Outros Softwares: {idiomas.outrosSoftwares}</li>
+            <li>Inglês: {idiomas.ingles || 'Nenhum'}</li>
+            <li>Espanhol: {idiomas.espanhol || 'Nenhum'}</li>
+            <li>Francês: {idiomas.frances || 'Nenhum'}</li>
+            <li>Outros: {idiomas.outros || 'Nenhum'}</li>
+            <li>Pacote Office: {idiomas.pacoteOffice || 'Nenhum'}</li>
+            <li>Outros Softwares: {idiomas.outrosSoftwares || 'Nenhum'}</li>
           </ul>
         </>
       )}
