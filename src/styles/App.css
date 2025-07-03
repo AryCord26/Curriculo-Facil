@@ -2,13 +2,41 @@
 .app-container {
   max-width: 800px;
   margin: 2rem auto;
-  padding: 1rem;
+  padding: 1rem 2rem;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
 }
 
 h1 {
   text-align: center;
   margin-bottom: 2rem;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+input, textarea {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+
+textarea {
+  min-height: 80px;
 }
