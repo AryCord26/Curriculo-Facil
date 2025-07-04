@@ -41,7 +41,7 @@ Contribuições são bem-vindas! Abra issues para sugestões e melhorias, ou env
 
 ## 👨‍💻 Dev
 
-Ary Cordeiro
+Ary Cordeiro.
 
 ---
 
