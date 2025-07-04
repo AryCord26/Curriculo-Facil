@@ -59,7 +59,7 @@ function LanguagesForm({ formData, setFormData }) {
     <section>
       <h2>Idiomas</h2>
 
-      {['inglês', 'espanhol', 'frances'].map((idioma) => (
+      {['inglês', 'espanhol', 'francês'].map((idioma) => (
         <div key={idioma} style={{ marginBottom: '1rem' }}>
           <label style={{ marginRight: '0.5rem', textTransform: 'capitalize' }}>
             {idioma}:
