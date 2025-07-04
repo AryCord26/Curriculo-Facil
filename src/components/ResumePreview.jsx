@@ -33,7 +33,7 @@ function ResumePreview({ data }) {
   // Idiomas válidos (exclui 'Nenhum' e vazios)
   const idiomasValidos = [];
 
-  ['inglês', 'espanhol', 'frances'].forEach((lang) => {
+  ['inglês', 'espanhol', 'francês'].forEach((lang) => {
     if (idiomas && idiomas[lang] && idiomas[lang] !== 'Nenhum') {
       idiomasValidos.push({ nome: idiomaLabels[lang], nivel: idiomas[lang] });
     }
