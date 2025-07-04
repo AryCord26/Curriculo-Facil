@@ -9,6 +9,7 @@ import CoursesForm from './components/CoursesForm';
 import CertificatesForm from './components/CertificatesForm';
 import SkillsForm from './components/SkillsForm';
 import LanguagesForm from './components/LanguagesForm';
+import KnowledgeForm from './components/KnowledgeForm';
 
 import SettingsPanel from './components/SettingsPanel';
 import ResumePreview from './components/ResumePreview';
@@ -31,9 +32,12 @@ function App() {
       ingles: 'Nenhum',
       espanhol: 'Nenhum',
       frances: 'Nenhum',
-      outros: 'Nenhum',
+      outros: 'Nenhum',  
+    conhecimentos: {
       pacoteOffice: 'Nenhum',
-      outrosSoftwares: '',
+      outros: '',
+},
+
     },
   });
 
