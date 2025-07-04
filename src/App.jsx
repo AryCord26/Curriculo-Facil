@@ -9,7 +9,7 @@ import CoursesForm from './components/CoursesForm';
 import CertificatesForm from './components/CertificatesForm';
 import SkillsForm from './components/SkillsForm';
 import LanguagesForm from './components/LanguagesForm';
-import KnowledgeForm from './components/KnowledgeForm'; // import corrigido
+import KnowledgeForm from './components/KnowledgeForm';
 
 import SettingsPanel from './components/SettingsPanel';
 import ResumePreview from './components/ResumePreview';
@@ -20,6 +20,9 @@ function App() {
     email: '',
     telefone: '',
     linkedin: '',
+    dataNascimento: '',
+    disponibilidadeMudanca: false,
+    disponibilidadeViagem: false,
     objetivo: '',
 
     formacoes: [{ curso: '', instituicao: '', anoConclusao: '' }],
@@ -32,7 +35,7 @@ function App() {
       ingles: 'Nenhum',
       espanhol: 'Nenhum',
       frances: 'Nenhum',
-      outrosIdiomas: [], // Lista dinâmica de outros idiomas
+      outrosIdiomas: [],
     },
 
     conhecimentos: {
@@ -82,7 +85,7 @@ function App() {
         setTheme={setTheme}
       />
 
-      <BasicInfoForm formData={formData} setFormData={setFormData} updateField={updateField} />
+      <BasicInfoForm formData={formData} updateField={updateField} />
       <ObjectiveForm formData={formData} updateField={updateField} />
       <EducationForm formData={formData} setFormData={setFormData} />
       <ExperienceForm formData={formData} setFormData={setFormData} />
