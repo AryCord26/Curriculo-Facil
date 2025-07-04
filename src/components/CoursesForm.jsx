@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-function CoursesForm() {
-  const [courses, setCourses] = useState([
-    { nome: '', instituicao: '', ano: '', imagem: null },
-  ]);
+function CoursesForm({ courses, setCourses }) {
 
   const handleChange = (index, field, value) => {
     const newCourses = [...courses];
