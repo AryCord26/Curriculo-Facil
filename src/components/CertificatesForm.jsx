@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-function CertificatesForm() {
-  const [certificates, setCertificates] = useState([
-    { nome: '', emissor: '', ano: '', imagem: null },
-  ]);
+function CertificatesForm({ certificates, setCertificates }) {
 
   const handleChange = (index, field, value) => {
     const newCertificates = [...certificates];
