@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-function CertificatesForm({ certificates, setCertificates }) {
+function CertificatesForm({ certificados, setCertificados }) {
+  // Inicializa o estado local com os dados do pai ou um array vazio
+  const [certificates, setCertificates] = useState(certificados || []);
+
+  useEffect(() => {
+    setCertificados(certificates);
+  }, [certificates, setCertificados]);
 
   const handleChange = (index, field, value) => {
     const newCertificates = [...certificates];
@@ -9,32 +15,32 @@ function CertificatesForm({ certificates, setCertificates }) {
   };
 
   const handleAdd = () => {
-    setCertificates([...certificates, { nome: '', emissor: '', ano: '', imagem: null }]);
+    setCertificates([...certificates, { nomeCertificado: '', emissor: '', anoCertificado: '', imagemCertificado: null }]);
   };
 
   const handleRemove = (index) => {
-    if (certificates.length === 1) return; // Mantém pelo menos um
     const newCertificates = certificates.filter((_, i) => i !== index);
     setCertificates(newCertificates);
   };
 
   const handleFileChange = (index, file) => {
     const newCertificates = [...certificates];
-    newCertificates[index].imagem = file;
+    newCertificates[index].imagemCertificado = file ? URL.createObjectURL(file) : null;
     setCertificates(newCertificates);
   };
 
   return (
     <section>
       <h2>Certificados</h2>
+      {certificates.length === 0 && <p>Nenhum certificado adicionado.</p>}
       {certificates.map((cert, i) => (
-        <form key={i} className="form-section">
+        <form key={i} className="form-section" onSubmit={e => e.preventDefault()}>
           <label>
             Nome do Certificado:
             <input
               type="text"
-              value={cert.nome}
-              onChange={e => handleChange(i, 'nome', e.target.value)}
+              value={cert.nomeCertificado}
+              onChange={e => handleChange(i, 'nomeCertificado', e.target.value)}
             />
           </label>
           <label>
@@ -49,8 +55,8 @@ function CertificatesForm({ certificates, setCertificates }) {
             Ano:
             <input
               type="text"
-              value={cert.ano}
-              onChange={e => handleChange(i, 'ano', e.target.value)}
+              value={cert.anoCertificado}
+              onChange={e => handleChange(i, 'anoCertificado', e.target.value)}
             />
           </label>
           <label>
