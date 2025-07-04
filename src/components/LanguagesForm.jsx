@@ -37,17 +37,22 @@ function LanguagesForm({ formData, setFormData }) {
         outrosIdiomas: [...(prev.idiomas.outrosIdiomas || []), { nome: '', nivel: 'Nenhum' }]
       }
     }));
+    setTimeout(() => {
+      document.getElementById('idioma-last')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   };
 
   const handleRemoveIdioma = (index) => {
-    const updated = outrosIdiomas.filter((_, i) => i !== index);
-    setFormData(prev => ({
-      ...prev,
-      idiomas: {
-        ...prev.idiomas,
-        outrosIdiomas: updated,
-      }
-    }));
+    if(window.confirm("Deseja realmente remover este idioma?")){
+      const updated = outrosIdiomas.filter((_, i) => i !== index);
+      setFormData(prev => ({
+        ...prev,
+        idiomas: {
+          ...prev.idiomas,
+          outrosIdiomas: updated,
+        }
+      }));
+    }
   };
 
   return (
@@ -55,75 +60,58 @@ function LanguagesForm({ formData, setFormData }) {
       <h2>Idiomas</h2>
 
       {['ingles', 'espanhol', 'frances'].map((idioma) => (
-        <label key={idioma} htmlFor={idioma} style={{ marginBottom: '1rem', textTransform: 'capitalize' }}>
-          {idioma}:
+        <div key={idioma} style={{ marginBottom: '1rem' }}>
+          <label style={{ marginRight: '0.5rem', textTransform: 'capitalize' }}>
+            {idioma}:
+          </label>
           <select
-            id={idioma}
             name={idioma}
             value={idiomas[idioma] || 'Nenhum'}
             onChange={handleSelectChange}
-            style={{ marginTop: '0.3rem' }}
+            style={{ minWidth: '140px', padding: '0.3rem' }}
           >
             {options.map((nivel) => (
               <option key={nivel} value={nivel}>{nivel}</option>
             ))}
           </select>
-        </label>
+        </div>
       ))}
 
       <h3>Outros Idiomas</h3>
       {outrosIdiomas.map((item, i) => (
-        <div key={i} style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1rem' }}>
+        <div
+          key={i}
+          className="dynamic-item"
+          id={i === outrosIdiomas.length - 1 ? 'idioma-last' : undefined}
+          tabIndex={-1}
+          style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}
+        >
           <input
             type="text"
             placeholder="Idioma"
             value={item.nome}
             onChange={e => handleOutrosChange(i, 'nome', e.target.value)}
-            style={{ flex: '1 1 40%' }}
+            style={{ flex: '1 1 150px', padding: '0.4rem', fontSize: '1rem' }}
           />
           <select
             value={item.nivel}
             onChange={e => handleOutrosChange(i, 'nivel', e.target.value)}
-            style={{ flex: '1 1 40%' }}
+            style={{ flex: '1 1 130px', padding: '0.4rem', fontSize: '1rem' }}
           >
             {options.map(n => <option key={n} value={n}>{n}</option>)}
           </select>
           <button
             type="button"
+            className="remove-btn"
+            aria-label={`Remover idioma ${i + 1}`}
             onClick={() => handleRemoveIdioma(i)}
-            style={{
-              backgroundColor: '#d9534f',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '6px',
-              padding: '0.5rem 0.8rem',
-              cursor: 'pointer',
-              transition: 'background-color 0.3s ease',
-            }}
-            onMouseOver={e => e.currentTarget.style.backgroundColor = '#c9302c'}
-            onMouseOut={e => e.currentTarget.style.backgroundColor = '#d9534f'}
+            style={{ flexShrink: 0 }}
           >
-            Remover
+            &times;
           </button>
         </div>
       ))}
-
-      <button
-        type="button"
-        onClick={handleAddIdioma}
-        style={{
-          marginTop: '1rem',
-          backgroundColor: 'var(--cor-principal)',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '8px',
-          padding: '0.7rem 1.2rem',
-          fontSize: '1rem',
-          cursor: 'pointer',
-        }}
-        onMouseOver={e => e.currentTarget.style.backgroundColor = '#356ac3'}
-        onMouseOut={e => e.currentTarget.style.backgroundColor = 'var(--cor-principal)'}
-      >
+      <button type="button" className="add-btn" onClick={handleAddIdioma}>
         Adicionar Outro Idioma
       </button>
     </section>
