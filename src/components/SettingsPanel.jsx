@@ -21,32 +21,36 @@ function SettingsPanel({ theme, setTheme, color, setColor, font, setFont }) {
   };
 
   return (
-    <section>
-      <h2>Personalize seu currículo</h2>
+    <>
+      {/* Toggle do modo escuro no canto superior direito */}
+      <div className="theme-toggle" onClick={toggleDarkMode} aria-label="Alternar tema claro/escuro" role="button" tabIndex={0} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') toggleDarkMode(); }}>
+        <span className="icon sun">☀️</span>
+        <span className={`toggle-switch ${theme === 'dark' ? 'dark' : 'light'}`}></span>
+        <span className="icon moon">🌙</span>
+      </div>
 
-      <label>
-        Cor principal:
-        <select value={color} onChange={e => setColor(e.target.value)}>
-          {Object.entries(cores).map(([nome, hex]) => (
-            <option key={nome} value={hex}>{nome}</option>
-          ))}
-        </select>
-      </label>
+      <section>
+        <h2>Personalize seu currículo</h2>
 
-      <label>
-        Fonte:
-        <select value={font} onChange={e => setFont(e.target.value)}>
-          {Object.entries(fontes).map(([nome, css]) => (
-            <option key={nome} value={css}>{nome}</option>
-          ))}
-        </select>
-      </label>
+        <label>
+          Cor principal:
+          <select value={color} onChange={e => setColor(e.target.value)}>
+            {Object.entries(cores).map(([nome, hex]) => (
+              <option key={nome} value={hex}>{nome}</option>
+            ))}
+          </select>
+        </label>
 
-      <label style={{ marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-        <input type="checkbox" checked={theme === 'dark'} onChange={toggleDarkMode} />
-        Modo Escuro
-      </label>
-    </section>
+        <label>
+          Fonte:
+          <select value={font} onChange={e => setFont(e.target.value)}>
+            {Object.entries(fontes).map(([nome, css]) => (
+              <option key={nome} value={css}>{nome}</option>
+            ))}
+          </select>
+        </label>
+      </section>
+    </>
   );
 }
 
