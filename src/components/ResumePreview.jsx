@@ -85,8 +85,17 @@ function ResumePreview({ data }) {
           <h3><FaCertificate /> Certificados</h3>
           <ul>
             {certificados.map((cert, i) => (
-              <li key={i}>
-                {cert.nomeCertificado} - {cert.emissor} ({cert.anoCertificado})
+              <li key={i} style={{ marginBottom: '1rem' }}>
+                <div>
+                  <strong>{cert.nomeCertificado}</strong> - {cert.emissor} ({cert.anoCertificado})
+                </div>
+                {cert.imagemCertificado && (
+                  <img
+                    src={cert.imagemCertificado}
+                    alt={`Certificado de ${cert.nomeCertificado}`}
+                    style={{ maxWidth: '200px', marginTop: '0.5rem', borderRadius: '6px', boxShadow: '0 0 8px rgba(0,0,0,0.1)' }}
+                  />
+                )}
               </li>
             ))}
           </ul>
