@@ -24,8 +24,8 @@ function App() {
     formacoes: [{ curso: '', instituicao: '', anoConclusao: '' }],
     experienciasProfissionais: [{ empresa: '', cargo: '', periodo: '', descricao: '' }],
     experienciasAcademicas: [{ atividade: '', instituicao: '', descricao: '' }],
-    cursos: [{ nomeCurso: '', instituicaoCurso: '', anoCurso: '' }],
-    certificados: [{ nomeCertificado: '', emissor: '', anoCertificado: '' }],
+    cursos: [{ nome: '', instituicao: '', ano: '', imagem: null }],
+    certificados: [{ nome: '', emissor: '', ano: '', imagem: null }],
     habilidades: '',
     idiomas: {
       ingles: 'Nenhum',
@@ -53,8 +53,19 @@ function App() {
     }
   }, [color, font, theme]);
 
+  // Atualiza campos simples no formData
   const updateField = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  // Atualiza cursos no estado (passado para CoursesForm)
+  const setCursos = (cursos) => {
+    setFormData(prev => ({ ...prev, cursos }));
+  };
+
+  // Atualiza certificados no estado (passado para CertificatesForm)
+  const setCertificados = (certificados) => {
+    setFormData(prev => ({ ...prev, certificados }));
   };
 
   return (
@@ -75,8 +86,10 @@ function App() {
 
       <EducationForm formData={formData} setFormData={setFormData} />
       <ExperienceForm formData={formData} setFormData={setFormData} />
-      <CoursesForm formData={formData} setFormData={setFormData} />
-      <CertificatesForm formData={formData} setFormData={setFormData} />
+
+      <CoursesForm courses={formData.cursos} setCourses={setCursos} />
+      <CertificatesForm certificates={formData.certificados} setCertificates={setCertificados} />
+
       <SkillsForm formData={formData} updateField={updateField} />
       <LanguagesForm formData={formData} setFormData={setFormData} />
 
