@@ -1,32 +1,23 @@
 import React from 'react';
 
-function ExperienceForm({ formData, setFormData }) {
-  const { experienciasProfissionais } = formData;
-
-  const handleChange = (index, e) => {
-    const { name, value } = e.target;
-    const newExperiences = [...experienciasProfissionais];
-    newExperiences[index][name] = value;
-    setFormData(prev => ({ ...prev, experienciasProfissionais: newExperiences }));
+function ExperienceForm({ experienciasProfissionais, setExperienciasProfissionais }) {
+  const handleChange = (index, field, value) => {
+    const newExperiencias = [...experienciasProfissionais];
+    newExperiencias[index][field] = value;
+    setExperienciasProfissionais(newExperiencias);
   };
 
-  const addExperience = () => {
-    setFormData(prev => ({
-      ...prev,
-      experienciasProfissionais: [
-        ...prev.experienciasProfissionais,
-        { empresa: '', cargo: '', periodo: '', descricao: '' }
-      ],
-    }));
+  const handleAdd = () => {
+    setExperienciasProfissionais([...experienciasProfissionais, { empresa: '', cargo: '', periodo: '', descricao: '' }]);
     setTimeout(() => {
       document.getElementById('experience-last')?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   };
 
-  const removeExperience = (index) => {
-    if(window.confirm("Deseja realmente remover esta experiência?")){
-      const newExperiences = experienciasProfissionais.filter((_, i) => i !== index);
-      setFormData(prev => ({ ...prev, experienciasProfissionais: newExperiences }));
+  const handleRemove = (index) => {
+    if (window.confirm('Deseja realmente remover esta experiência?')) {
+      const newExperiencias = experienciasProfissionais.filter((_, i) => i !== index);
+      setExperienciasProfissionais(newExperiencias);
     }
   };
 
@@ -34,49 +25,43 @@ function ExperienceForm({ formData, setFormData }) {
     <section>
       <h2>Experiência Profissional</h2>
       {experienciasProfissionais.length === 0 && <p>Nenhuma experiência adicionada.</p>}
-
       {experienciasProfissionais.map((exp, i) => (
-        <div key={i} className="dynamic-item" id={i === experienciasProfissionais.length -1 ? 'experience-last' : undefined} tabIndex={-1}>
+        <div
+          key={i}
+          className="dynamic-item"
+          id={i === experienciasProfissionais.length - 1 ? 'experience-last' : undefined}
+          tabIndex={-1}
+        >
           <h4>Experiência {i + 1}</h4>
-          <div className="form-row">
-            <label>
-              Empresa:
-              <input
-                type="text"
-                name="empresa"
-                value={exp.empresa}
-                onChange={(e) => handleChange(i, e)}
-              />
-            </label>
-
-            <label>
-              Cargo:
-              <input
-                type="text"
-                name="cargo"
-                value={exp.cargo}
-                onChange={(e) => handleChange(i, e)}
-              />
-            </label>
-
-            <label>
-              Período:
-              <input
-                type="text"
-                name="periodo"
-                value={exp.periodo}
-                onChange={(e) => handleChange(i, e)}
-              />
-            </label>
-          </div>
-
+          <label>
+            Empresa:
+            <input
+              type="text"
+              value={exp.empresa}
+              onChange={(e) => handleChange(i, 'empresa', e.target.value)}
+            />
+          </label>
+          <label>
+            Cargo:
+            <input
+              type="text"
+              value={exp.cargo}
+              onChange={(e) => handleChange(i, 'cargo', e.target.value)}
+            />
+          </label>
+          <label>
+            Período:
+            <input
+              type="text"
+              value={exp.periodo}
+              onChange={(e) => handleChange(i, 'periodo', e.target.value)}
+            />
+          </label>
           <label>
             Descrição:
             <textarea
-              name="descricao"
               value={exp.descricao}
-              onChange={(e) => handleChange(i, e)}
-              rows={3}
+              onChange={(e) => handleChange(i, 'descricao', e.target.value)}
             />
           </label>
 
@@ -91,11 +76,7 @@ function ExperienceForm({ formData, setFormData }) {
         </div>
       ))}
 
-      <button
-        type="button"
-        className="add-btn"
-        onClick={addExperience}
-      >
+      <button type="button" className="add-btn" onClick={handleAdd}>
         Adicionar Experiência
       </button>
     </section>
