@@ -15,70 +15,76 @@ function EducationForm({ formData, setFormData }) {
       ...prev,
       formacoes: [...prev.formacoes, { curso: '', instituicao: '', anoConclusao: '' }],
     }));
+    setTimeout(() => {
+      document.getElementById('formation-last')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   };
 
   const removeFormation = (index) => {
-    const newFormacoes = formacoes.filter((_, i) => i !== index);
-    setFormData(prev => ({ ...prev, formacoes: newFormacoes }));
+    if(window.confirm("Deseja realmente remover esta formação?")) {
+      const newFormacoes = formacoes.filter((_, i) => i !== index);
+      setFormData(prev => ({ ...prev, formacoes: newFormacoes }));
+    }
   };
 
   return (
     <section>
       <h2>Formação Acadêmica</h2>
-
       {formacoes.length === 0 && <p>Nenhuma formação adicionada.</p>}
 
       {formacoes.map((formacao, i) => (
-        <fieldset key={i} className="form-section" style={{ border: '1px solid var(--cor-borda)', padding: '1rem', borderRadius: '8px' }}>
-          <legend>Formação #{i + 1}</legend>
+        <div
+          key={i}
+          className="dynamic-item"
+          id={i === formacoes.length - 1 ? 'formation-last' : undefined}
+          tabIndex={-1}
+        >
+          <h4>Formação {i + 1}</h4>
 
-          <label htmlFor={`curso-${i}`}>
-            Curso:
-            <input
-              type="text"
-              id={`curso-${i}`}
-              name="curso"
-              value={formacao.curso}
-              onChange={(e) => handleChange(i, e)}
-              placeholder="Ex: Bacharelado em Ciência da Computação"
-            />
-          </label>
+          <div className="form-row">
+            <label>
+              Curso:
+              <input
+                type="text"
+                name="curso"
+                value={formacao.curso}
+                onChange={e => handleChange(i, e)}
+              />
+            </label>
 
-          <label htmlFor={`instituicao-${i}`}>
-            Instituição:
-            <input
-              type="text"
-              id={`instituicao-${i}`}
-              name="instituicao"
-              value={formacao.instituicao}
-              onChange={(e) => handleChange(i, e)}
-              placeholder="Nome da universidade ou escola"
-            />
-          </label>
+            <label>
+              Instituição:
+              <input
+                type="text"
+                name="instituicao"
+                value={formacao.instituicao}
+                onChange={e => handleChange(i, e)}
+              />
+            </label>
 
-          <label htmlFor={`anoConclusao-${i}`}>
-            Ano de Conclusão:
-            <input
-              type="text"
-              id={`anoConclusao-${i}`}
-              name="anoConclusao"
-              value={formacao.anoConclusao}
-              onChange={(e) => handleChange(i, e)}
-              placeholder="Ex: 2025"
-            />
-          </label>
+            <label>
+              Ano de Conclusão:
+              <input
+                type="text"
+                name="anoConclusao"
+                value={formacao.anoConclusao}
+                onChange={e => handleChange(i, e)}
+              />
+            </label>
+          </div>
 
           <button
             type="button"
+            className="remove-btn"
+            aria-label={`Remover formação ${i + 1}`}
             onClick={() => removeFormation(i)}
-            className="btn-remove"
           >
-            Remover Formação
+            &times;
           </button>
-        </fieldset>
+        </div>
       ))}
 
-      <button type="button" onClick={addFormation} className="btn-add-formation">
+      <button type="button" className="add-btn" onClick={addFormation}>
         Adicionar Formação
       </button>
     </section>
