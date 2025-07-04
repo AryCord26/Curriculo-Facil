@@ -1,10 +1,12 @@
-// src/components/BasicInfoForm.jsx
 import React from 'react';
 
 function BasicInfoForm({ formData, setFormData }) {
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
   };
 
   return (
@@ -26,6 +28,28 @@ function BasicInfoForm({ formData, setFormData }) {
         <label>
           LinkedIn:
           <input type="url" name="linkedin" value={formData.linkedin} onChange={handleChange} />
+        </label>
+        <label>
+          Data de Nascimento:
+          <input type="date" name="dataNascimento" value={formData.dataNascimento} onChange={handleChange} />
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            name="disponibilidadeMudanca"
+            checked={formData.disponibilidadeMudanca || false}
+            onChange={handleChange}
+          />
+          Disponível para mudanças
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            name="disponibilidadeViagem"
+            checked={formData.disponibilidadeViagem || false}
+            onChange={handleChange}
+          />
+          Disponível para viagens
         </label>
       </form>
     </section>
