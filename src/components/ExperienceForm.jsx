@@ -2,13 +2,16 @@ import React from 'react';
 
 function ExperienceForm({ experienciasProfissionais, setExperienciasProfissionais }) {
   const handleChange = (index, field, value) => {
-    const newExperiencias = [...experienciasProfissionais];
-    newExperiencias[index][field] = value;
-    setExperienciasProfissionais(newExperiencias);
+    const newExperiences = [...experienciasProfissionais];
+    newExperiences[index][field] = value;
+    setExperienciasProfissionais(newExperiences);
   };
 
   const handleAdd = () => {
-    setExperienciasProfissionais([...experienciasProfissionais, { empresa: '', cargo: '', periodo: '', descricao: '' }]);
+    setExperienciasProfissionais([
+      ...experienciasProfissionais,
+      { empresa: '', cargo: '', periodo: '', descricao: '' },
+    ]);
     setTimeout(() => {
       document.getElementById('experience-last')?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
@@ -16,8 +19,8 @@ function ExperienceForm({ experienciasProfissionais, setExperienciasProfissionai
 
   const handleRemove = (index) => {
     if (window.confirm('Deseja realmente remover esta experiência?')) {
-      const newExperiencias = experienciasProfissionais.filter((_, i) => i !== index);
-      setExperienciasProfissionais(newExperiencias);
+      const newExperiences = experienciasProfissionais.filter((_, i) => i !== index);
+      setExperienciasProfissionais(newExperiences);
     }
   };
 
