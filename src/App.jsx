@@ -9,7 +9,7 @@ import CoursesForm from './components/CoursesForm';
 import CertificatesForm from './components/CertificatesForm';
 import SkillsForm from './components/SkillsForm';
 import LanguagesForm from './components/LanguagesForm';
-import KnowledgeForm from './components/KnowledgeForm';
+import KnowledgeForm from './components/KnowledgeForm'; // import corrigido
 
 import SettingsPanel from './components/SettingsPanel';
 import ResumePreview from './components/ResumePreview';
@@ -24,20 +24,20 @@ function App() {
 
     formacoes: [{ curso: '', instituicao: '', anoConclusao: '' }],
     experienciasProfissionais: [{ empresa: '', cargo: '', periodo: '', descricao: '' }],
-    experienciasAcademicas: [{ atividade: '', instituicao: '', descricao: '' }],
     cursos: [{ nome: '', instituicao: '', ano: '', imagem: null }],
     certificados: [{ nome: '', emissor: '', ano: '', imagem: null }],
     habilidades: '',
+
     idiomas: {
       ingles: 'Nenhum',
       espanhol: 'Nenhum',
       frances: 'Nenhum',
-      outros: 'Nenhum',  
+      outrosIdiomas: [], // Lista dinâmica de outros idiomas
+    },
+
     conhecimentos: {
       pacoteOffice: 'Nenhum',
       outros: '',
-},
-
     },
   });
 
@@ -57,17 +57,14 @@ function App() {
     }
   }, [color, font, theme]);
 
-  // Atualiza campos simples no formData
   const updateField = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  // Atualiza cursos no estado (passado para CoursesForm)
   const setCursos = (cursos) => {
     setFormData(prev => ({ ...prev, cursos }));
   };
 
-  // Atualiza certificados no estado (passado para CertificatesForm)
   const setCertificados = (certificados) => {
     setFormData(prev => ({ ...prev, certificados }));
   };
@@ -87,7 +84,6 @@ function App() {
 
       <BasicInfoForm formData={formData} setFormData={setFormData} updateField={updateField} />
       <ObjectiveForm formData={formData} updateField={updateField} />
-
       <EducationForm formData={formData} setFormData={setFormData} />
       <ExperienceForm formData={formData} setFormData={setFormData} />
 
@@ -96,6 +92,7 @@ function App() {
 
       <SkillsForm formData={formData} updateField={updateField} />
       <LanguagesForm formData={formData} setFormData={setFormData} />
+      <KnowledgeForm formData={formData} setFormData={setFormData} />
 
       <ResumePreview data={formData} />
     </div>
