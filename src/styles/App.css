@@ -214,3 +214,62 @@ button:hover,
     font-size: 0.95rem;
   }
 }
+/* Toggle tema claro/escuro no canto superior direito */
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1000;
+}
+
+.theme-toggle .icon {
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+  pointer-events: none;
+}
+
+.theme-toggle .sun {
+  color: #f5b50a; /* amarelo sol */
+}
+
+.theme-toggle .moon {
+  color: #6c63ff; /* azul lua */
+}
+
+/* Fundo do interruptor */
+.toggle-switch {
+  width: 40px;
+  height: 20px;
+  background-color: #bbb;
+  border-radius: 20px;
+  position: relative;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* Bolinha do interruptor */
+.toggle-switch::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  transition: left 0.3s ease;
+}
+
+/* Modo escuro ativo: muda cor e posiciona a bolinha */
+.toggle-switch.dark {
+  background-color: var(--cor-principal);
+}
+
+.toggle-switch.dark::before {
+  left: 22px;
+}
