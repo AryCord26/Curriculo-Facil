@@ -87,8 +87,8 @@ function App() {
       <EducationForm formData={formData} setFormData={setFormData} />
       <ExperienceForm formData={formData} setFormData={setFormData} />
 
-      <CoursesForm courses={formData.cursos} setCourses={setCursos} />
-      <CertificatesForm certificates={formData.certificados} setCertificates={setCertificados} />
+      <CoursesForm cursos={formData.cursos} setCursos={setCursos} />
+      <CertificatesForm certificados={formData.certificados} setCertificados={setCertificados} />
 
       <SkillsForm formData={formData} updateField={updateField} />
       <LanguagesForm formData={formData} setFormData={setFormData} />
