@@ -51,328 +51,90 @@ h1 {
   text-align: center;
 }
 
-/* === SettingsPanel === */
-section {
-  margin-bottom: 2rem;
-}
-
-label {
-  font-weight: 600;
-  font-size: 1rem;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-select, input[type="checkbox"] {
-  margin-top: 0.3rem;
-  font-size: 1rem;
-}
-
-select {
-  padding: 0.5rem;
-  border-radius: 6px;
-  border: 1.5px solid var(--cor-borda);
-  font-family: inherit;
-  width: 200px;
-  cursor: pointer;
+/* === Formulários dinâmicos: container e espaçamento */
+.dynamic-item {
+  border: 1px solid var(--cor-borda);
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.2rem;
+  border-radius: 8px;
   background-color: var(--cor-fundo);
-  color: var(--cor-texto);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-input[type="checkbox"] {
-  cursor: pointer;
-  transform: scale(1.2);
-  margin-right: 0.5rem;
-}
-
-label > input[type="checkbox"] {
-  vertical-align: middle;
-}
-
-/* === Formulários === */
-.form-section {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
 }
 
-input, textarea {
-  margin-top: 0.3rem;
-  padding: 0.6rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1.5px solid var(--cor-borda);
-  transition: border-color 0.2s ease, background-color 0.3s ease, color 0.3s ease;
-  font-family: inherit;
-  width: 100%;
-  box-sizing: border-box;
-  background-color: var(--cor-fundo);
-  color: var(--cor-texto);
-}
-
-input:focus, textarea:focus {
-  outline: none;
-  border-color: var(--cor-principal);
-}
-
-/* Fundo cinza claro nos inputs, selects e textareas no tema claro */
-body:not(.dark-mode) input,
-body:not(.dark-mode) select,
-body:not(.dark-mode) textarea {
-  background-color: #e6e6e6;
-  color: var(--cor-texto);
-  border: 1.5px solid var(--cor-borda);
-}
-
-/* Fundo branco no foco para melhor destaque */
-body:not(.dark-mode) input:focus,
-body:not(.dark-mode) select:focus,
-body:not(.dark-mode) textarea:focus {
-  background-color: #fff;
-  border-color: var(--cor-principal);
-  color: var(--cor-texto);
-}
-
-/* === Botões (sempre azuis) === */
-button,
+/* Botão Adicionar (azul) */
 .add-btn {
   background-color: var(--cor-principal);
   color: white;
   border: none;
-  padding: 0.7rem 1.2rem;
+  padding: 0.7rem 1.3rem;
   font-size: 1rem;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
   align-self: flex-start;
   margin-top: 1rem;
+  box-shadow: 0 3px 6px rgba(74, 144, 226, 0.4);
 }
 
-button:hover,
-.add-btn:hover {
+.add-btn:hover,
+.add-btn:focus {
   background-color: #356ac3;
-}
-
-/* Botão remover estilizado com texto */
-.remove-btn {
-  background-color: #e74c3c; /* vermelho vivo */
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  font-weight: 600;
-  font-size: 0.95rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  align-self: flex-start;
-  margin-top: 0.8rem;
-}
-
-.remove-btn:hover {
-  background-color: #c0392b; /* vermelho mais escuro */
-}
-
-/* === Itens Dinâmicos === */
-.dynamic-item {
-  position: relative;
-  background-color: var(--cor-secundaria);
-  border: 1.5px solid var(--cor-borda);
-  border-radius: 10px;
-  padding: 1rem 1.5rem 1.5rem 1.5rem;
-  margin-bottom: 1.5rem;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.dynamic-item:focus-within {
-  background-color: #dbe9ff;
-  border-color: var(--cor-principal);
+  box-shadow: 0 5px 12px rgba(53, 106, 195, 0.6);
   outline: none;
 }
 
-.dynamic-item h4 {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  color: var(--cor-principal);
-}
-
-/* Linha para inputs lado a lado */
-.form-row {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.7rem;
-}
-
-.form-row label {
-  flex: 1 1 200px;
-  min-width: 150px;
-}
-
-/* Preview das imagens de certificado e curso */
-.img-preview {
-  display: block;
-  max-width: 150px;
-  max-height: 90px;
-  margin-top: 0.5rem;
+/* Botão Remover (vermelho) */
+.remove-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
   border-radius: 6px;
-  border: 1px solid var(--cor-borda);
-  object-fit: contain;
-}
-
-/* === ResumePreview === */
-.resume-preview {
-  background-color: var(--cor-fundo);
-  color: var(--cor-texto);
-  padding: 2rem 2.5rem;
-  margin-top: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
-  font-family: var(--fonte-principal);
-  line-height: 1.5;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.resume-preview h2 {
-  color: var(--cor-principal);
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  border-bottom: 3px solid var(--cor-principal);
-  padding-bottom: 0.3rem;
-}
-
-.resume-preview h3 {
-  color: var(--cor-principal);
-  font-size: 1.3rem;
-  margin-top: 1.5rem;
-  margin-bottom: 0.8rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-left: 4px solid var(--cor-principal);
-  padding-left: 0.5rem;
-  font-weight: 600;
-}
-
-.resume-preview p {
-  font-size: 1rem;
-  margin-bottom: 0.7rem;
-  color: var(--cor-texto);
-}
-
-.resume-preview ul {
-  list-style-type: disc;
-  padding-left: 1.6rem;
-  margin-bottom: 1rem;
-  color: var(--cor-texto);
-}
-
-.resume-preview li {
-  margin-bottom: 0.4rem;
-  font-size: 1rem;
-}
-
-/* === Responsividade === */
-@media (max-width: 768px) {
-  .app-container {
-    padding: 1rem 1.2rem;
-    max-width: 95vw;
-  }
-
-  .form-row {
-    flex-direction: column;
-  }
-
-  .form-row label {
-    flex: 1 1 100%;
-    min-width: auto;
-  }
-
-  select {
-    width: 100% !important;
-  }
-
-  .img-preview {
-    max-width: 100px;
-    max-height: 60px;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.6rem;
-  }
-
-  button,
-  .add-btn {
-    width: 100%;
-    font-size: 1.1rem;
-    padding: 0.9rem 1rem;
-  }
-
-  .remove-btn {
-    font-size: 1rem;
-    padding: 0.6rem 1.2rem;
-  }
-}
-
-/* Toggle tema claro/escuro no canto superior direito */
-.theme-toggle {
-  position: fixed;
-  top: 1rem;
-  right: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
   cursor: pointer;
-  user-select: none;
-  z-index: 1000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 0.7rem;
+  align-self: flex-start;
+  box-shadow: 0 2px 5px rgba(231, 76, 60, 0.4);
 }
 
-.theme-toggle .icon {
-  font-size: 1.2rem;
-  transition: color 0.3s ease;
-  pointer-events: none;
+.remove-btn:hover,
+.remove-btn:focus {
+  background-color: #c0392b;
+  box-shadow: 0 4px 10px rgba(192, 57, 43, 0.6);
+  outline: none;
 }
 
-.theme-toggle .sun {
-  color: #f5b50a; /* amarelo sol */
+/* Foco acessível para todos os botões */
+button,
+.add-btn,
+.remove-btn {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.theme-toggle .moon {
-  color: #6c63ff; /* azul lua */
+button:focus,
+.add-btn:focus,
+.remove-btn:focus {
+  outline: 2px solid var(--cor-principal);
+  outline-offset: 2px;
+  box-shadow: 0 0 10px var(--cor-principal);
 }
 
-/* Fundo do interruptor */
-.toggle-switch {
-  width: 40px;
-  height: 20px;
-  background-color: #bbb;
-  border-radius: 20px;
-  position: relative;
-  transition: background-color 0.3s ease;
-  flex-shrink: 0;
-}
-
-/* Bolinha do interruptor */
-.toggle-switch::before {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 16px;
-  height: 16px;
-  background-color: white;
-  border-radius: 50%;
-  transition: left 0.3s ease;
-}
-
-/* Modo escuro ativo: muda cor e posiciona a bolinha */
-.toggle-switch.dark {
-  background-color: var(--cor-principal);
-}
-
-.toggle-switch.dark::before {
-  left: 22px;
+/* Responsividade */
+@media (max-width: 600px) {
+  .app-container {
+    padding: 1rem;
+  }
+  .dynamic-item {
+    padding: 0.8rem 1rem;
+  }
+  .add-btn,
+  .remove-btn {
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+  }
 }
