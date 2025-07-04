@@ -218,3 +218,4 @@ function ResumePreview({ data }) {
 }
 
 export default ResumePreview;
+
