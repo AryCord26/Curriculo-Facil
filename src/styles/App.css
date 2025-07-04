@@ -117,6 +117,24 @@ input:focus, textarea:focus {
   border-color: var(--cor-principal);
 }
 
+/* === Fundo cinza claro nos inputs, selects e textareas no tema claro */
+body:not(.dark-mode) input,
+body:not(.dark-mode) select,
+body:not(.dark-mode) textarea {
+  background-color: #e6e6e6;
+  color: var(--cor-texto);
+  border: 1.5px solid var(--cor-borda);
+}
+
+/* Fundo branco no foco para melhor destaque */
+body:not(.dark-mode) input:focus,
+body:not(.dark-mode) select:focus,
+body:not(.dark-mode) textarea:focus {
+  background-color: #fff;
+  border-color: var(--cor-principal);
+  color: var(--cor-texto);
+}
+
 /* === Botões (sempre azuis) === */
 button,
 .btn-add-formation,
@@ -214,6 +232,7 @@ button:hover,
     font-size: 0.95rem;
   }
 }
+
 /* Toggle tema claro/escuro no canto superior direito */
 .theme-toggle {
   position: fixed;
