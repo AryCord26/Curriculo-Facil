@@ -12,7 +12,6 @@ function BasicInfoForm({ formData, updateField }) {
         return '';
       case 'email':
         if (!value.trim()) return 'Email é obrigatório.';
-        // Regex simples para email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) return 'Email inválido.';
         return '';
@@ -37,12 +36,10 @@ function BasicInfoForm({ formData, updateField }) {
 
     updateField(name, fieldValue);
 
-    // Validar o campo na alteração
     const errorMsg = validate(name, fieldValue);
     setErrors(prev => ({ ...prev, [name]: errorMsg }));
   };
 
-  // Validar todos os campos quando o formData mudar (ex: se resetar)
   useEffect(() => {
     const newErrors = {};
     ['nome', 'email', 'telefone', 'dataNascimento'].forEach(field => {
@@ -52,57 +49,138 @@ function BasicInfoForm({ formData, updateField }) {
   }, [formData]);
 
   return (
-    <section>
-      <h2>Informações Básicas</h2>
+    <section aria-labelledby="basic-info-title">
+      <h2 id="basic-info-title">Informações Básicas</h2>
       <form className="form-section" noValidate>
-        <label>
+        <label htmlFor="nome">
           Nome Completo:
-          <input type="text" name="nome" value={formData.nome} onChange={handleChange} />
-          {errors.nome && <small style={{color: 'red'}}>{errors.nome}</small>}
+          <input
+            type="text"
+            id="nome"
+            name="nome"
+            value={formData.nome}
+            onChange={handleChange}
+            aria-describedby="nome-error"
+            aria-invalid={!!errors.nome}
+            aria-required="true"
+          />
         </label>
+        {errors.nome && (
+          <small
+            id="nome-error"
+            style={{ color: 'red' }}
+            role="alert"
+            aria-live="assertive"
+          >
+            {errors.nome}
+          </small>
+        )}
 
-        <label>
+        <label htmlFor="email">
           E-mail:
-          <input type="email" name="email" value={formData.email} onChange={handleChange} />
-          {errors.email && <small style={{color: 'red'}}>{errors.email}</small>}
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            aria-describedby="email-error"
+            aria-invalid={!!errors.email}
+            aria-required="true"
+          />
         </label>
+        {errors.email && (
+          <small
+            id="email-error"
+            style={{ color: 'red' }}
+            role="alert"
+            aria-live="assertive"
+          >
+            {errors.email}
+          </small>
+        )}
 
-        <label>
+        <label htmlFor="telefone">
           Telefone:
-          <input type="tel" name="telefone" value={formData.telefone} onChange={handleChange} />
-          {errors.telefone && <small style={{color: 'red'}}>{errors.telefone}</small>}
+          <input
+            type="tel"
+            id="telefone"
+            name="telefone"
+            value={formData.telefone}
+            onChange={handleChange}
+            aria-describedby="telefone-error"
+            aria-invalid={!!errors.telefone}
+          />
         </label>
+        {errors.telefone && (
+          <small
+            id="telefone-error"
+            style={{ color: 'red' }}
+            role="alert"
+            aria-live="assertive"
+          >
+            {errors.telefone}
+          </small>
+        )}
 
-        <label>
+        <label htmlFor="linkedin">
           LinkedIn:
-          <input type="url" name="linkedin" value={formData.linkedin} onChange={handleChange} />
+          <input
+            type="url"
+            id="linkedin"
+            name="linkedin"
+            value={formData.linkedin}
+            onChange={handleChange}
+            placeholder="https://linkedin.com/in/seu-perfil"
+          />
         </label>
 
-        <label>
+        <label htmlFor="dataNascimento">
           Data de Nascimento:
-          <input type="date" name="dataNascimento" value={formData.dataNascimento} onChange={handleChange} />
-          {errors.dataNascimento && <small style={{color: 'red'}}>{errors.dataNascimento}</small>}
-        </label>
-
-        <label>
           <input
-            type="checkbox"
-            name="disponibilidadeMudanca"
-            checked={formData.disponibilidadeMudanca || false}
+            type="date"
+            id="dataNascimento"
+            name="dataNascimento"
+            value={formData.dataNascimento}
             onChange={handleChange}
+            aria-describedby="dataNascimento-error"
+            aria-invalid={!!errors.dataNascimento}
           />
-          Disponível para mudanças
         </label>
+        {errors.dataNascimento && (
+          <small
+            id="dataNascimento-error"
+            style={{ color: 'red' }}
+            role="alert"
+            aria-live="assertive"
+          >
+            {errors.dataNascimento}
+          </small>
+        )}
 
-        <label>
-          <input
-            type="checkbox"
-            name="disponibilidadeViagem"
-            checked={formData.disponibilidadeViagem || false}
-            onChange={handleChange}
-          />
-          Disponível para viagens
-        </label>
+        <fieldset>
+          <legend>Disponibilidade</legend>
+          <div>
+            <input
+              type="checkbox"
+              id="disponibilidadeMudanca"
+              name="disponibilidadeMudanca"
+              checked={formData.disponibilidadeMudanca || false}
+              onChange={handleChange}
+            />
+            <label htmlFor="disponibilidadeMudanca">Disponível para mudanças</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              id="disponibilidadeViagem"
+              name="disponibilidadeViagem"
+              checked={formData.disponibilidadeViagem || false}
+              onChange={handleChange}
+            />
+            <label htmlFor="disponibilidadeViagem">Disponível para viagens</label>
+          </div>
+        </fieldset>
       </form>
     </section>
   );
