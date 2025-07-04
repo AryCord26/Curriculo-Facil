@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaGraduationCap, FaBriefcase, FaCertificate, FaBook, FaGlobe } from 'react-icons/fa';
-import '../styles/ResumePreview.css'; // seu CSS de estilos
+import '../styles/ResumePreview.css';
 
 function ResumePreview({ data }) {
   const {
@@ -15,6 +15,7 @@ function ResumePreview({ data }) {
     certificados = [],
     habilidades,
     idiomas = {},
+    conhecimentos = {},
   } = data;
 
   return (
@@ -53,7 +54,7 @@ function ResumePreview({ data }) {
           ))}
         </>
       )}
-      
+
       {cursos.length > 0 && (
         <>
           <h3><FaBook /> Cursos</h3>
@@ -107,14 +108,30 @@ function ResumePreview({ data }) {
 
       {idiomas && (
         <>
-          <h3><FaGlobe /> Idiomas e Conhecimentos</h3>
+          <h3><FaGlobe /> Idiomas</h3>
           <ul>
             <li>Inglês: {idiomas.ingles || 'Nenhum'}</li>
             <li>Espanhol: {idiomas.espanhol || 'Nenhum'}</li>
             <li>Francês: {idiomas.frances || 'Nenhum'}</li>
-            <li>Outros: {idiomas.outros || 'Nenhum'}</li>
-            <li>Pacote Office: {idiomas.pacoteOffice || 'Nenhum'}</li>
-            <li>Outros Softwares: {idiomas.outrosSoftwares || 'Nenhum'}</li>
+            {Array.isArray(idiomas.outrosIdiomas) && idiomas.outrosIdiomas.length > 0 && (
+              idiomas.outrosIdiomas.map((item, i) => (
+                <li key={i}>{item.nome}: {item.nivel}</li>
+              ))
+            )}
+          </ul>
+        </>
+      )}
+
+      {conhecimentos && (conhecimentos.pacoteOffice || conhecimentos.outros) && (
+        <>
+          <h3>Conhecimentos Gerais</h3>
+          <ul>
+            {conhecimentos.pacoteOffice && (
+              <li>Pacote Office: {conhecimentos.pacoteOffice}</li>
+            )}
+            {conhecimentos.outros && (
+              <li>Outros: {conhecimentos.outros}</li>
+            )}
           </ul>
         </>
       )}
