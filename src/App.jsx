@@ -60,14 +60,17 @@ function App() {
     }
   }, [color, font, theme]);
 
+  // Atualiza campos simples (string, boolean)
   const updateField = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  // Atualiza cursos no estado (passado para CoursesForm)
   const setCursos = (cursos) => {
     setFormData(prev => ({ ...prev, cursos }));
   };
 
+  // Atualiza certificados no estado (passado para CertificatesForm)
   const setCertificados = (certificados) => {
     setFormData(prev => ({ ...prev, certificados }));
   };
