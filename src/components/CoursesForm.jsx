@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-function CoursesForm({ courses, setCourses }) {
+function CoursesForm({ cursos, setCursos }) {
+  const [courses, setCourses] = useState(cursos || []);
+
+  useEffect(() => {
+    setCursos(courses);
+  }, [courses, setCursos]);
 
   const handleChange = (index, field, value) => {
     const newCourses = [...courses];
@@ -9,48 +14,48 @@ function CoursesForm({ courses, setCourses }) {
   };
 
   const handleAdd = () => {
-    setCourses([...courses, { nome: '', instituicao: '', ano: '', imagem: null }]);
+    setCourses([...courses, { nomeCurso: '', instituicaoCurso: '', anoCurso: '', imagemCurso: null }]);
   };
 
   const handleRemove = (index) => {
-    if (courses.length === 1) return; // Mantém pelo menos um
     const newCourses = courses.filter((_, i) => i !== index);
     setCourses(newCourses);
   };
 
   const handleFileChange = (index, file) => {
     const newCourses = [...courses];
-    newCourses[index].imagem = file;
+    newCourses[index].imagemCurso = file ? URL.createObjectURL(file) : null;
     setCourses(newCourses);
   };
 
   return (
     <section>
       <h2>Cursos</h2>
+      {courses.length === 0 && <p>Nenhum curso adicionado.</p>}
       {courses.map((course, i) => (
-        <form key={i} className="form-section">
+        <form key={i} className="form-section" onSubmit={e => e.preventDefault()}>
           <label>
             Nome do Curso:
             <input
               type="text"
-              value={course.nome}
-              onChange={e => handleChange(i, 'nome', e.target.value)}
+              value={course.nomeCurso}
+              onChange={e => handleChange(i, 'nomeCurso', e.target.value)}
             />
           </label>
           <label>
             Instituição:
             <input
               type="text"
-              value={course.instituicao}
-              onChange={e => handleChange(i, 'instituicao', e.target.value)}
+              value={course.instituicaoCurso}
+              onChange={e => handleChange(i, 'instituicaoCurso', e.target.value)}
             />
           </label>
           <label>
             Ano:
             <input
               type="text"
-              value={course.ano}
-              onChange={e => handleChange(i, 'ano', e.target.value)}
+              value={course.anoCurso}
+              onChange={e => handleChange(i, 'anoCurso', e.target.value)}
             />
           </label>
           <label>
