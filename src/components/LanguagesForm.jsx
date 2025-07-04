@@ -1,9 +1,10 @@
 import React from 'react';
 
 function LanguagesForm({ formData, setFormData }) {
-  const options = ['Nenhum', 'Básico', 'Intermediário', 'Avançado', 'Fluente', 'Outro'];
+  const options = ['Nenhum', 'Básico', 'Intermediário', 'Avançado', 'Fluente'];
 
   const idiomas = formData.idiomas || {};
+  const outrosIdiomas = idiomas.outrosIdiomas || [];
 
   const handleSelectChange = (e) => {
     const { name, value } = e.target;
@@ -12,30 +13,52 @@ function LanguagesForm({ formData, setFormData }) {
       idiomas: {
         ...prev.idiomas,
         [name]: value,
-        // Se mudou para diferente de 'Outro', limpa o campo do nome personalizado
-        ...(value !== 'Outro' && name === 'outros' ? { outrosNome: '' } : {})
       }
     }));
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleOutrosChange = (index, field, value) => {
+    const updated = [...outrosIdiomas];
+    updated[index][field] = value;
+
     setFormData(prev => ({
       ...prev,
       idiomas: {
         ...prev.idiomas,
-        [name]: value
+        outrosIdiomas: updated,
+      }
+    }));
+  };
+
+  const handleAddIdioma = () => {
+    setFormData(prev => ({
+      ...prev,
+      idiomas: {
+        ...prev.idiomas,
+        outrosIdiomas: [...(prev.idiomas.outrosIdiomas || []), { nome: '', nivel: 'Nenhum' }]
+      }
+    }));
+  };
+
+  const handleRemoveIdioma = (index) => {
+    const updated = outrosIdiomas.filter((_, i) => i !== index);
+    setFormData(prev => ({
+      ...prev,
+      idiomas: {
+        ...prev.idiomas,
+        outrosIdiomas: updated,
       }
     }));
   };
 
   return (
     <section>
-      <h2>Idiomas e Conhecimentos</h2>
-      {['ingles', 'espanhol', 'frances', 'outros'].map((idioma) => (
+      <h2>Idiomas</h2>
+
+      {['ingles', 'espanhol', 'frances'].map((idioma) => (
         <div key={idioma} style={{ marginBottom: '1rem' }}>
           <label style={{ marginRight: '0.5rem', textTransform: 'capitalize' }}>
-            {idioma === 'outros' ? 'Outros idiomas' : idioma}:
+            {idioma}:
           </label>
           <select
             name={idioma}
@@ -46,41 +69,30 @@ function LanguagesForm({ formData, setFormData }) {
               <option key={nivel} value={nivel}>{nivel}</option>
             ))}
           </select>
-
-          {/* Se for "outros" e estiver selecionado "Outro", mostra o input para nome */}
-          {idioma === 'outros' && idiomas.outros === 'Outro' && (
-            <input
-              type="text"
-              name="outrosNome"
-              placeholder="Qual outro idioma?"
-              value={idiomas.outrosNome || ''}
-              onChange={handleInputChange}
-              style={{ marginLeft: '0.5rem', padding: '0.3rem', borderRadius: '5px', border: '1px solid #ccc' }}
-            />
-          )}
         </div>
       ))}
 
-      <h3>Pacote Office</h3>
-      <select
-        name="pacoteOffice"
-        value={idiomas.pacoteOffice || 'Nenhum'}
-        onChange={handleSelectChange}
-        style={{ marginBottom: '1rem' }}
-      >
-        {options.slice(0, -1).map((nivel) => ( // sem a opção Outro aqui
-          <option key={nivel} value={nivel}>{nivel}</option>
-        ))}
-      </select>
-
-      <h3>Outros Softwares</h3>
-      <textarea
-        name="outrosSoftwares"
-        placeholder="Ex: Canva, Photoshop, Excel Avançado..."
-        rows="2"
-        value={idiomas.outrosSoftwares || ''}
-        onChange={handleInputChange}
-      />
+      <h3>Outros Idiomas</h3>
+      {outrosIdiomas.map((item, i) => (
+        <div key={i} style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+          <input
+            type="text"
+            placeholder="Idioma"
+            value={item.nome}
+            onChange={e => handleOutrosChange(i, 'nome', e.target.value)}
+            style={{ flex: 1, padding: '0.4rem' }}
+          />
+          <select
+            value={item.nivel}
+            onChange={e => handleOutrosChange(i, 'nivel', e.target.value)}
+            style={{ flex: 1 }}
+          >
+            {options.map(n => <option key={n} value={n}>{n}</option>)}
+          </select>
+          <button type="button" onClick={() => handleRemoveIdioma(i)}>Remover</button>
+        </div>
+      ))}
+      <button type="button" onClick={handleAddIdioma}>Adicionar Outro Idioma</button>
     </section>
   );
 }
