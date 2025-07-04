@@ -155,24 +155,23 @@ button:hover,
   background-color: #356ac3;
 }
 
-/* Botões de remover pequenos e no canto */
+/* Botão remover estilizado com texto */
 .remove-btn {
-  background-color: #d9534f;
+  background-color: #e74c3c; /* vermelho vivo */
   color: white;
   border: none;
-  font-weight: 700;
-  font-size: 1.3rem;
-  line-height: 1;
-  padding: 0 10px;
-  border-radius: 50%;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 6px;
   cursor: pointer;
-  align-self: flex-start;
-  margin-top: 0.5rem;
   transition: background-color 0.3s ease;
+  align-self: flex-start;
+  margin-top: 0.8rem;
 }
 
 .remove-btn:hover {
-  background-color: #c9302c;
+  background-color: #c0392b; /* vermelho mais escuro */
 }
 
 /* === Itens Dinâmicos === */
@@ -313,8 +312,8 @@ button:hover,
   }
 
   .remove-btn {
-    font-size: 1.5rem;
-    padding: 0 14px;
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
   }
 }
 
