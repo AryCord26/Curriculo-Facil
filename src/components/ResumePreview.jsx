@@ -6,9 +6,9 @@ import {
 } from 'react-icons/fa';
 
 const idiomaLabels = {
-  ingles: 'Inglês',
+  inglês: 'Inglês',
   espanhol: 'Espanhol',
-  frances: 'Francês',
+  francês: 'Francês',
 };
 
 function ResumePreview({ data }) {
