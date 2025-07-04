@@ -11,7 +11,6 @@ function ResumePreview({ data }) {
     objetivo,
     formacoes = [],
     experienciasProfissionais = [],
-    experienciasAcademicas = [],
     cursos = [],
     certificados = [],
     habilidades,
@@ -54,19 +53,7 @@ function ResumePreview({ data }) {
           ))}
         </>
       )}
-
-      {experienciasAcademicas.length > 0 && (
-        <>
-          <h3><FaBriefcase /> Experiência Acadêmica</h3>
-          {experienciasAcademicas.map((exp, i) => (
-            <div key={i} className="experience-block">
-              <p><strong>{exp.atividade}</strong> - {exp.instituicao}</p>
-              <p>{exp.descricao}</p>
-            </div>
-          ))}
-        </>
-      )}
-
+      
       {cursos.length > 0 && (
         <>
           <h3><FaBook /> Cursos</h3>
