@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaGraduationCap, FaBriefcase, FaCertificate, FaBook, FaGlobe } from 'react-icons/fa';
-import '../styles/ResumePreview.css'; // Importa o CSS com suporte a temas
+import '../styles/ResumePreview.css'; // seu CSS de estilos
 
 function ResumePreview({ data }) {
   const {
@@ -72,8 +72,17 @@ function ResumePreview({ data }) {
           <h3><FaBook /> Cursos</h3>
           <ul>
             {cursos.map((curso, i) => (
-              <li key={i}>
-                {curso.nomeCurso} - {curso.instituicaoCurso} ({curso.anoCurso})
+              <li key={i} style={{ marginBottom: '1rem' }}>
+                <div>
+                  <strong>{curso.nome}</strong> - {curso.instituicao} ({curso.ano})
+                </div>
+                {curso.imagem && (
+                  <img
+                    src={typeof curso.imagem === 'string' ? curso.imagem : URL.createObjectURL(curso.imagem)}
+                    alt={`Certificado do curso ${curso.nome}`}
+                    style={{ maxWidth: '200px', marginTop: '0.5rem', borderRadius: '6px', boxShadow: '0 0 8px rgba(0,0,0,0.1)' }}
+                  />
+                )}
               </li>
             ))}
           </ul>
@@ -87,12 +96,12 @@ function ResumePreview({ data }) {
             {certificados.map((cert, i) => (
               <li key={i} style={{ marginBottom: '1rem' }}>
                 <div>
-                  <strong>{cert.nomeCertificado}</strong> - {cert.emissor} ({cert.anoCertificado})
+                  <strong>{cert.nome}</strong> - {cert.emissor} ({cert.ano})
                 </div>
-                {cert.imagemCertificado && (
+                {cert.imagem && (
                   <img
-                    src={cert.imagemCertificado}
-                    alt={`Certificado de ${cert.nomeCertificado}`}
+                    src={typeof cert.imagem === 'string' ? cert.imagem : URL.createObjectURL(cert.imagem)}
+                    alt={`Certificado de ${cert.nome}`}
                     style={{ maxWidth: '200px', marginTop: '0.5rem', borderRadius: '6px', boxShadow: '0 0 8px rgba(0,0,0,0.1)' }}
                   />
                 )}
