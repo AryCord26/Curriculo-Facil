@@ -26,6 +26,23 @@ function ResumePreview({ data }) {
     conhecimentos,
   } = data;
 
+  // Filtra idiomas para exibir somente os válidos (diferentes de 'Nenhum')
+  const idiomasValidos = [];
+
+  ['ingles', 'espanhol', 'frances'].forEach((lang) => {
+    if (idiomas && idiomas[lang] && idiomas[lang] !== 'Nenhum') {
+      idiomasValidos.push({ nome: idiomaLabels[lang], nivel: idiomas[lang] });
+    }
+  });
+
+  if (idiomas && idiomas.outrosIdiomas && idiomas.outrosIdiomas.length > 0) {
+    idiomas.outrosIdiomas.forEach((outro) => {
+      if (outro.nivel && outro.nivel !== 'Nenhum') {
+        idiomasValidos.push({ nome: outro.nome || 'Idioma não informado', nivel: outro.nivel });
+      }
+    });
+  }
+
   return (
     <div className="resume-preview" style={{ fontFamily: 'var(--fonte-principal)' }}>
       {/* Header */}
@@ -116,27 +133,19 @@ function ResumePreview({ data }) {
       <h3 className="section-title"><FaTools /> Habilidades Técnicas</h3>
       <p>{habilidades || 'Descreva aqui suas habilidades técnicas.'}</p>
 
-      {/* Idiomas */}
-      <h3 className="section-title"><FaLanguage /> Idiomas</h3>
-      <ul>
-        {['ingles', 'espanhol', 'frances'].map((lang) => {
-          const nivel = idiomas && idiomas[lang];
-          if (!nivel || nivel === 'Nenhum') return null;
-          return (
-            <li key={lang}>
-              <strong>{idiomaLabels[lang]}</strong>: {nivel}
-            </li>
-          );
-        })}
-        {idiomas && idiomas.outrosIdiomas && idiomas.outrosIdiomas.length > 0 && idiomas.outrosIdiomas.map((outro, i) => {
-          if (!outro.nivel || outro.nivel === 'Nenhum') return null;
-          return (
-            <li key={`outro-${i}`}>
-              <strong>{outro.nome || 'Idioma não informado'}</strong>: {outro.nivel}
-            </li>
-          );
-        })}
-      </ul>
+      {/* Idiomas - renderiza só se tiver algum idioma válido */}
+      {idiomasValidos.length > 0 && (
+        <>
+          <h3 className="section-title"><FaLanguage /> Idiomas</h3>
+          <ul>
+            {idiomasValidos.map((idioma, i) => (
+              <li key={i}>
+                <strong>{idioma.nome}</strong>: {idioma.nivel}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
 
       {/* Conhecimentos */}
       <h3 className="section-title"><FaTools /> Conhecimentos</h3>
