@@ -119,16 +119,23 @@ function ResumePreview({ data }) {
       {/* Idiomas */}
       <h3 className="section-title"><FaLanguage /> Idiomas</h3>
       <ul>
-        {['ingles', 'espanhol', 'frances'].map((lang) => (
-          <li key={lang}>
-            <strong>{idiomaLabels[lang]}</strong>: {idiomas && idiomas[lang] ? idiomas[lang] : 'Nenhum'}
-          </li>
-        ))}
-        {idiomas && idiomas.outrosIdiomas && idiomas.outrosIdiomas.length > 0 && idiomas.outrosIdiomas.map((outro, i) => (
-          <li key={`outro-${i}`}>
-            <strong>{outro.nome || 'Idioma não informado'}</strong>: {outro.nivel || 'Nenhum'}
-          </li>
-        ))}
+        {['ingles', 'espanhol', 'frances'].map((lang) => {
+          const nivel = idiomas && idiomas[lang];
+          if (!nivel || nivel === 'Nenhum') return null;
+          return (
+            <li key={lang}>
+              <strong>{idiomaLabels[lang]}</strong>: {nivel}
+            </li>
+          );
+        })}
+        {idiomas && idiomas.outrosIdiomas && idiomas.outrosIdiomas.length > 0 && idiomas.outrosIdiomas.map((outro, i) => {
+          if (!outro.nivel || outro.nivel === 'Nenhum') return null;
+          return (
+            <li key={`outro-${i}`}>
+              <strong>{outro.nome || 'Idioma não informado'}</strong>: {outro.nivel}
+            </li>
+          );
+        })}
       </ul>
 
       {/* Conhecimentos */}
