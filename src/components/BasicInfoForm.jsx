@@ -1,12 +1,9 @@
 import React from 'react';
 
-function BasicInfoForm({ formData, setFormData }) {
+function BasicInfoForm({ formData, updateField }) {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
+    updateField(name, type === 'checkbox' ? checked : value);
   };
 
   return (
