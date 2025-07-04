@@ -110,8 +110,16 @@ function App() {
 
       <BasicInfoForm formData={formData} updateField={updateField} />
       <ObjectiveForm formData={formData} updateField={updateField} />
-      <EducationForm formData={formData} setFormData={setFormData} />
-      <ExperienceForm formData={formData} setFormData={setFormData} />
+
+      <EducationForm
+        formacoes={formData.formacoes}
+        setFormacoes={(novasFormacoes) => setFormData(prev => ({ ...prev, formacoes: novasFormacoes }))}
+      />
+
+      <ExperienceForm
+        experienciasProfissionais={formData.experienciasProfissionais}
+        setExperienciasProfissionais={(novasExperiencias) => setFormData(prev => ({ ...prev, experienciasProfissionais: novasExperiencias }))}
+      />
 
       <CoursesForm cursos={formData.cursos} setCursos={setCursos} />
       <CertificatesForm certificados={formData.certificados} setCertificados={setCertificados} />
