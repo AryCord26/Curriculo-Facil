@@ -12,8 +12,8 @@ function KnowledgeForm({ formData, setFormData }) {
       ...prev,
       conhecimentos: {
         ...prev.conhecimentos,
-        [name]: value
-      }
+        [name]: value,
+      },
     }));
   };
 
@@ -23,21 +23,31 @@ function KnowledgeForm({ formData, setFormData }) {
     <section>
       <h2>Conhecimentos</h2>
 
-      <label>
+      <label htmlFor="pacoteOffice">
         Pacote Office:
-        <select name="pacoteOffice" value={conhecimentos.pacoteOffice} onChange={handleChange}>
-          {options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+        <select
+          id="pacoteOffice"
+          name="pacoteOffice"
+          value={conhecimentos.pacoteOffice}
+          onChange={handleChange}
+        >
+          {options.map(opt => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
+          ))}
         </select>
       </label>
 
-      <label>
+      <label htmlFor="outros">
         Outros Softwares / Conhecimentos:
         <textarea
+          id="outros"
           name="outros"
           value={conhecimentos.outros}
           onChange={handleChange}
-          placeholder="Ex: Photoshop, Canva, Excel Avançado..."
-          rows="3"
+          placeholder="Ex: Photoshop, Canva, Excel Avançado, SAP, ferramentas de BI..."
+          rows={3}
         />
       </label>
     </section>
