@@ -190,6 +190,28 @@ button[disabled] {
   opacity: 0.7;
 }
 
+/* Botão Remover (vermelho vibrante) */
+.remove-btn {
+  background-color: #d93025; /* vermelho vivo */
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 0.7rem;
+  align-self: flex-start;
+  box-shadow: 0 2px 5px rgba(217, 48, 37, 0.4);
+}
+
+.remove-btn:hover,
+.remove-btn:focus {
+  background-color: #a8221a; /* vermelho mais escuro para hover/focus */
+  box-shadow: 0 4px 10px rgba(168, 34, 26, 0.6);
+  outline: none;
+}
+
 /* === ResumePreview === */
 .resume-preview {
   background-color: var(--cor-fundo);
