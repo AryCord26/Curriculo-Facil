@@ -37,7 +37,7 @@ function App() {
     idiomas: {
       inglês: 'Nenhum',
       espanhol: 'Nenhum',
-      frances: 'Nenhum',
+      francês: 'Nenhum',
       outrosIdiomas: [],
     },
 
