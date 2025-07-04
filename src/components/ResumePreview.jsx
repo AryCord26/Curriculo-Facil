@@ -1,5 +1,9 @@
 import React from 'react';
-import { FaUser, FaEnvelope, FaPhone, FaLinkedin, FaBriefcase, FaGraduationCap, FaBook, FaCertificate, FaTools, FaLanguage } from 'react-icons/fa';
+import {
+  FaUser, FaEnvelope, FaPhone, FaLinkedin,
+  FaBriefcase, FaGraduationCap, FaBook,
+  FaCertificate, FaTools, FaLanguage
+} from 'react-icons/fa';
 
 const idiomaLabels = {
   ingles: 'Inglês',
@@ -26,7 +30,7 @@ function ResumePreview({ data }) {
     conhecimentos,
   } = data;
 
-  // Filtra idiomas para exibir somente os válidos (diferentes de 'Nenhum')
+  // Idiomas válidos (exclui 'Nenhum' e vazios)
   const idiomasValidos = [];
 
   ['ingles', 'espanhol', 'frances'].forEach((lang) => {
@@ -37,18 +41,49 @@ function ResumePreview({ data }) {
 
   if (idiomas && idiomas.outrosIdiomas && idiomas.outrosIdiomas.length > 0) {
     idiomas.outrosIdiomas.forEach((outro) => {
-      if (outro.nivel && outro.nivel !== 'Nenhum') {
-        idiomasValidos.push({ nome: outro.nome || 'Idioma não informado', nivel: outro.nivel });
+      if (outro.nivel && outro.nivel !== 'Nenhum' && outro.nome && outro.nome.trim() !== '') {
+        idiomasValidos.push({ nome: outro.nome, nivel: outro.nivel });
       }
     });
   }
 
-  // Verifica se deve mostrar a seção conhecimentos
+  // Verifica se mostra conhecimentos
   const mostrarConhecimentos = conhecimentos &&
     (
       (conhecimentos.pacoteOffice && conhecimentos.pacoteOffice !== 'Nenhum') ||
       (conhecimentos.outros && conhecimentos.outros.trim() !== '')
     );
+
+  // Verifica se mostra habilidades técnicas (não vazio e diferente de 'Nenhum' se quiser)
+  const mostrarHabilidades = habilidades && habilidades.trim() !== '' && habilidades.trim().toLowerCase() !== 'nenhum';
+
+  // Verifica se existe pelo menos um item válido em cada lista
+  const temFormacoesValidas = formacoes && formacoes.some(f =>
+    (f.curso && f.curso.trim() !== '') ||
+    (f.instituicao && f.instituicao.trim() !== '') ||
+    (f.anoConclusao && f.anoConclusao.trim() !== '')
+  );
+
+  const temExperienciasValidas = experienciasProfissionais && experienciasProfissionais.some(exp =>
+    (exp.cargo && exp.cargo.trim() !== '') ||
+    (exp.empresa && exp.empresa.trim() !== '') ||
+    (exp.periodo && exp.periodo.trim() !== '') ||
+    (exp.descricao && exp.descricao.trim() !== '')
+  );
+
+  const temCursosValidos = cursos && cursos.some(curso =>
+    (curso.nome && curso.nome.trim() !== '') ||
+    (curso.instituicao && curso.instituicao.trim() !== '') ||
+    (curso.ano && curso.ano.trim() !== '') ||
+    curso.imagem
+  );
+
+  const temCertificadosValidos = certificados && certificados.some(cert =>
+    (cert.nome && cert.nome.trim() !== '') ||
+    (cert.emissor && cert.emissor.trim() !== '') ||
+    (cert.ano && cert.ano.trim() !== '') ||
+    cert.imagem
+  );
 
   return (
     <div className="resume-preview" style={{ fontFamily: 'var(--fonte-principal)' }}>
@@ -64,83 +99,99 @@ function ResumePreview({ data }) {
       <p>Disponibilidade para viagens: {disponibilidadeViagem ? 'Sim' : 'Não'}</p>
 
       {/* Objetivo */}
-      <h3 className="section-title"><FaBook /> Objetivo</h3>
-      <p>{objetivo || 'Descreva aqui seu objetivo profissional.'}</p>
+      {objetivo && objetivo.trim() !== '' && (
+        <>
+          <h3 className="section-title"><FaBook /> Objetivo</h3>
+          <p>{objetivo}</p>
+        </>
+      )}
 
       {/* Formação */}
-      <h3 className="section-title"><FaGraduationCap /> Formação</h3>
-      {formacoes && formacoes.length > 0 ? (
-        <ul>
-          {formacoes.map((f, i) => (
-            <li key={i}>
-              <strong>{f.curso || 'Curso não informado'}</strong> - {f.instituicao || 'Instituição não informada'} ({f.anoConclusao || 'Ano não informado'})
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Nenhuma formação adicionada.</p>
+      {temFormacoesValidas && (
+        <>
+          <h3 className="section-title"><FaGraduationCap /> Formação</h3>
+          <ul>
+            {formacoes.map((f, i) => (
+              (f.curso?.trim() || f.instituicao?.trim() || f.anoConclusao?.trim()) && (
+                <li key={i}>
+                  <strong>{f.curso || 'Curso não informado'}</strong> - {f.instituicao || 'Instituição não informada'} ({f.anoConclusao || 'Ano não informado'})
+                </li>
+              )
+            ))}
+          </ul>
+        </>
       )}
 
       {/* Experiência Profissional */}
-      <h3 className="section-title"><FaBriefcase /> Experiência Profissional</h3>
-      {experienciasProfissionais && experienciasProfissionais.length > 0 ? (
-        experienciasProfissionais.map((exp, i) => (
-          <div key={i} style={{ marginBottom: '1rem' }}>
-            <strong>{exp.cargo || 'Cargo não informado'}</strong> - {exp.empresa || 'Empresa não informada'} ({exp.periodo || 'Período não informado'})
-            <p>{exp.descricao || 'Descrição não informada'}</p>
-          </div>
-        ))
-      ) : (
-        <p>Nenhuma experiência adicionada.</p>
+      {temExperienciasValidas && (
+        <>
+          <h3 className="section-title"><FaBriefcase /> Experiência Profissional</h3>
+          {experienciasProfissionais.map((exp, i) => (
+            (exp.cargo?.trim() || exp.empresa?.trim() || exp.periodo?.trim() || exp.descricao?.trim()) && (
+              <div key={i} style={{ marginBottom: '1rem' }}>
+                <strong>{exp.cargo || 'Cargo não informado'}</strong> - {exp.empresa || 'Empresa não informada'} ({exp.periodo || 'Período não informado'})
+                <p>{exp.descricao || 'Descrição não informada'}</p>
+              </div>
+            )
+          ))}
+        </>
       )}
 
       {/* Cursos */}
-      <h3 className="section-title"><FaBook /> Cursos</h3>
-      {cursos && cursos.length > 0 ? (
-        cursos.map((curso, i) => (
-          <div key={i} style={{ marginBottom: '1rem' }}>
-            <strong>{curso.nome || 'Curso não informado'}</strong> - {curso.instituicao || 'Instituição não informada'} ({curso.ano || 'Ano não informado'})
-            {curso.imagem && (
-              <figure style={{ marginTop: '0.5rem' }}>
-                <img
-                  src={typeof curso.imagem === 'string' ? curso.imagem : URL.createObjectURL(curso.imagem)}
-                  alt={`Certificado do curso ${curso.nome}`}
-                  style={{ maxWidth: '200px', borderRadius: '6px', boxShadow: '0 0 8px rgba(0,0,0,0.1)' }}
-                />
-              </figure>
-            )}
-          </div>
-        ))
-      ) : (
-        <p>Nenhum curso adicionado.</p>
+      {temCursosValidos && (
+        <>
+          <h3 className="section-title"><FaBook /> Cursos</h3>
+          {cursos.map((curso, i) => (
+            (curso.nome?.trim() || curso.instituicao?.trim() || curso.ano?.trim() || curso.imagem) && (
+              <div key={i} style={{ marginBottom: '1rem' }}>
+                <strong>{curso.nome || 'Curso não informado'}</strong> - {curso.instituicao || 'Instituição não informada'} ({curso.ano || 'Ano não informado'})
+                {curso.imagem && (
+                  <figure style={{ marginTop: '0.5rem' }}>
+                    <img
+                      src={typeof curso.imagem === 'string' ? curso.imagem : URL.createObjectURL(curso.imagem)}
+                      alt={`Certificado do curso ${curso.nome}`}
+                      style={{ maxWidth: '200px', borderRadius: '6px', boxShadow: '0 0 8px rgba(0,0,0,0.1)' }}
+                    />
+                  </figure>
+                )}
+              </div>
+            )
+          ))}
+        </>
       )}
 
       {/* Certificados */}
-      <h3 className="section-title"><FaCertificate /> Certificados</h3>
-      {certificados && certificados.length > 0 ? (
-        certificados.map((cert, i) => (
-          <div key={i} style={{ marginBottom: '1rem' }}>
-            <strong>{cert.nome || 'Certificado não informado'}</strong> - {cert.emissor || 'Emissor não informado'} ({cert.ano || 'Ano não informado'})
-            {cert.imagem && (
-              <figure style={{ marginTop: '0.5rem' }}>
-                <img
-                  src={typeof cert.imagem === 'string' ? cert.imagem : URL.createObjectURL(cert.imagem)}
-                  alt={`Imagem do certificado ${cert.nome}`}
-                  style={{ maxWidth: '200px', borderRadius: '6px', boxShadow: '0 0 8px rgba(0,0,0,0.1)' }}
-                />
-              </figure>
-            )}
-          </div>
-        ))
-      ) : (
-        <p>Nenhum certificado adicionado.</p>
+      {temCertificadosValidos && (
+        <>
+          <h3 className="section-title"><FaCertificate /> Certificados</h3>
+          {certificados.map((cert, i) => (
+            (cert.nome?.trim() || cert.emissor?.trim() || cert.ano?.trim() || cert.imagem) && (
+              <div key={i} style={{ marginBottom: '1rem' }}>
+                <strong>{cert.nome || 'Certificado não informado'}</strong> - {cert.emissor || 'Emissor não informado'} ({cert.ano || 'Ano não informado'})
+                {cert.imagem && (
+                  <figure style={{ marginTop: '0.5rem' }}>
+                    <img
+                      src={typeof cert.imagem === 'string' ? cert.imagem : URL.createObjectURL(cert.imagem)}
+                      alt={`Imagem do certificado ${cert.nome}`}
+                      style={{ maxWidth: '200px', borderRadius: '6px', boxShadow: '0 0 8px rgba(0,0,0,0.1)' }}
+                    />
+                  </figure>
+                )}
+              </div>
+            )
+          ))}
+        </>
       )}
 
       {/* Habilidades Técnicas */}
-      <h3 className="section-title"><FaTools /> Habilidades Técnicas</h3>
-      <p>{habilidades || 'Descreva aqui suas habilidades técnicas.'}</p>
+      {mostrarHabilidades && (
+        <>
+          <h3 className="section-title"><FaTools /> Habilidades Técnicas</h3>
+          <p>{habilidades}</p>
+        </>
+      )}
 
-      {/* Idiomas - renderiza só se tiver algum idioma válido */}
+      {/* Idiomas */}
       {idiomasValidos.length > 0 && (
         <>
           <h3 className="section-title"><FaLanguage /> Idiomas</h3>
@@ -154,16 +205,12 @@ function ResumePreview({ data }) {
         </>
       )}
 
-      {/* Conhecimentos - renderiza só se tiver algo válido */}
+      {/* Conhecimentos */}
       {mostrarConhecimentos && (
         <>
           <h3 className="section-title"><FaTools /> Conhecimentos</h3>
-          <p>
-            Pacote Office: {conhecimentos?.pacoteOffice || 'Nenhum'}
-          </p>
-          <p>
-            Outros: {conhecimentos?.outros || 'Nenhum'}
-          </p>
+          <p>Pacote Office: {conhecimentos?.pacoteOffice}</p>
+          <p>Outros: {conhecimentos?.outros}</p>
         </>
       )}
     </div>
