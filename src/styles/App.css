@@ -90,14 +90,6 @@ label > input[type="checkbox"] {
   vertical-align: middle;
 }
 
-/* === Alinhamento para labels com checkbox (disponibilidade) === */
-.form-section label {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  cursor: pointer;
-}
-
 /* === Formulários === */
 .form-section {
   display: flex;
