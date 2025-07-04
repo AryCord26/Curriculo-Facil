@@ -108,17 +108,32 @@ function ResumePreview({ data }) {
 
       {idiomas && (
         <>
-          <h3><FaGlobe /> Idiomas</h3>
-          <ul>
-            <li>Inglês: {idiomas.ingles || 'Nenhum'}</li>
-            <li>Espanhol: {idiomas.espanhol || 'Nenhum'}</li>
-            <li>Francês: {idiomas.frances || 'Nenhum'}</li>
-            {Array.isArray(idiomas.outrosIdiomas) && idiomas.outrosIdiomas.length > 0 && (
-              idiomas.outrosIdiomas.map((item, i) => (
-                <li key={i}>{item.nome}: {item.nivel}</li>
-              ))
-            )}
-          </ul>
+          {( ['ingles', 'espanhol', 'frances'].some(lang => idiomas[lang] && idiomas[lang] !== 'Nenhum') ||
+            (Array.isArray(idiomas.outrosIdiomas) && idiomas.outrosIdiomas.some(item => item.nome && item.nivel && item.nivel !== 'Nenhum'))
+          ) && (
+            <>
+              <h3><FaGlobe /> Idiomas</h3>
+              <ul>
+                {['ingles', 'espanhol', 'frances'].map((lang) =>
+                  idiomas[lang] && idiomas[lang] !== 'Nenhum' ? (
+                    <li key={lang}>
+                      {lang.charAt(0).toUpperCase() + lang.slice(1)}: {idiomas[lang]}
+                    </li>
+                  ) : null
+                )}
+
+                {Array.isArray(idiomas.outrosIdiomas) && idiomas.outrosIdiomas.length > 0 &&
+                  idiomas.outrosIdiomas.map((item, i) =>
+                    item.nome && item.nivel && item.nivel !== 'Nenhum' ? (
+                      <li key={i}>
+                        {item.nome}: {item.nivel}
+                      </li>
+                    ) : null
+                  )
+                }
+              </ul>
+            </>
+          )}
         </>
       )}
 
