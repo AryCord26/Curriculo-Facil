@@ -35,7 +35,7 @@ function App() {
     habilidades: '',
 
     idiomas: {
-      ingles: 'Nenhum',
+      inglês: 'Nenhum',
       espanhol: 'Nenhum',
       frances: 'Nenhum',
       outrosIdiomas: [],
