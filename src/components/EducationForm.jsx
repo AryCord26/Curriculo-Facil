@@ -76,7 +76,7 @@ function EducationForm({ formData, setFormData }) {
            <button
             type="button"
             className="remove-btn"
-            aria-label={`Remover certificado ${i + 1}`}
+            aria-label={`Remover formação ${i + 1}`}
             onClick={() => handleRemove(i)}
           >
             Remover
