@@ -75,7 +75,7 @@ function CertificatesForm({ certificados, setCertificados }) {
             aria-label={`Remover certificado ${i + 1}`}
             onClick={() => handleRemove(i)}
           >
-            &times;
+            Remover
           </button>
         </div>
       ))}
