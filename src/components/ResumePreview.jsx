@@ -75,12 +75,12 @@ function ResumePreview({ data }) {
       {cursos && cursos.length > 0 ? (
         cursos.map((curso, i) => (
           <div key={i} style={{ marginBottom: '1rem' }}>
-            <strong>{curso.nomeCurso || 'Curso não informado'}</strong> - {curso.instituicaoCurso || 'Instituição não informada'} ({curso.anoCurso || 'Ano não informado'})
-            {curso.imagemCurso && (
+            <strong>{curso.nome || 'Curso não informado'}</strong> - {curso.instituicao || 'Instituição não informada'} ({curso.ano || 'Ano não informado'})
+            {curso.imagem && (
               <figure style={{ marginTop: '0.5rem' }}>
                 <img
-                  src={typeof curso.imagemCurso === 'string' ? curso.imagemCurso : URL.createObjectURL(curso.imagemCurso)}
-                  alt={`Certificado do curso ${curso.nomeCurso}`}
+                  src={typeof curso.imagem === 'string' ? curso.imagem : URL.createObjectURL(curso.imagem)}
+                  alt={`Certificado do curso ${curso.nome}`}
                   style={{ maxWidth: '200px', borderRadius: '6px', boxShadow: '0 0 8px rgba(0,0,0,0.1)' }}
                 />
               </figure>
@@ -96,12 +96,12 @@ function ResumePreview({ data }) {
       {certificados && certificados.length > 0 ? (
         certificados.map((cert, i) => (
           <div key={i} style={{ marginBottom: '1rem' }}>
-            <strong>{cert.nomeCertificado || 'Certificado não informado'}</strong> - {cert.emissor || 'Emissor não informado'} ({cert.anoCertificado || 'Ano não informado'})
-            {cert.imagemCertificado && (
+            <strong>{cert.nome || 'Certificado não informado'}</strong> - {cert.emissor || 'Emissor não informado'} ({cert.ano || 'Ano não informado'})
+            {cert.imagem && (
               <figure style={{ marginTop: '0.5rem' }}>
                 <img
-                  src={typeof cert.imagemCertificado === 'string' ? cert.imagemCertificado : URL.createObjectURL(cert.imagemCertificado)}
-                  alt={`Imagem do certificado ${cert.nomeCertificado}`}
+                  src={typeof cert.imagem === 'string' ? cert.imagem : URL.createObjectURL(cert.imagem)}
+                  alt={`Imagem do certificado ${cert.nome}`}
                   style={{ maxWidth: '200px', borderRadius: '6px', boxShadow: '0 0 8px rgba(0,0,0,0.1)' }}
                 />
               </figure>
