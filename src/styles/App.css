@@ -95,7 +95,6 @@ label > input[type="checkbox"] {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  margin-bottom: 1rem;
   cursor: pointer;
 }
 
