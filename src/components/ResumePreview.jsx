@@ -43,6 +43,13 @@ function ResumePreview({ data }) {
     });
   }
 
+  // Verifica se deve mostrar a seção conhecimentos
+  const mostrarConhecimentos = conhecimentos &&
+    (
+      (conhecimentos.pacoteOffice && conhecimentos.pacoteOffice !== 'Nenhum') ||
+      (conhecimentos.outros && conhecimentos.outros.trim() !== '')
+    );
+
   return (
     <div className="resume-preview" style={{ fontFamily: 'var(--fonte-principal)' }}>
       {/* Header */}
@@ -147,14 +154,18 @@ function ResumePreview({ data }) {
         </>
       )}
 
-      {/* Conhecimentos */}
-      <h3 className="section-title"><FaTools /> Conhecimentos</h3>
-      <p>
-        Pacote Office: {conhecimentos?.pacoteOffice || 'Nenhum'}
-      </p>
-      <p>
-        Outros: {conhecimentos?.outros || 'Nenhum'}
-      </p>
+      {/* Conhecimentos - renderiza só se tiver algo válido */}
+      {mostrarConhecimentos && (
+        <>
+          <h3 className="section-title"><FaTools /> Conhecimentos</h3>
+          <p>
+            Pacote Office: {conhecimentos?.pacoteOffice || 'Nenhum'}
+          </p>
+          <p>
+            Outros: {conhecimentos?.outros || 'Nenhum'}
+          </p>
+        </>
+      )}
     </div>
   );
 }
