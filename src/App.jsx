@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 import './styles/App.css';
 
 import BasicInfoForm from './components/BasicInfoForm';
@@ -49,6 +52,9 @@ function App() {
   const [font, setFont] = useState("'Segoe UI', Tahoma, Geneva, Verdana, sans-serif");
   const [theme, setTheme] = useState('light');
 
+  // Ref para capturar o preview para o PDF
+  const resumeRef = useRef();
+
   useEffect(() => {
     document.documentElement.style.setProperty('--cor-principal', color);
     document.documentElement.style.setProperty('--fonte-principal', font);
@@ -60,19 +66,33 @@ function App() {
     }
   }, [color, font, theme]);
 
-  // Atualiza campos simples (string, boolean)
   const updateField = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  // Atualiza cursos no estado (passado para CoursesForm)
   const setCursos = (cursos) => {
     setFormData(prev => ({ ...prev, cursos }));
   };
 
-  // Atualiza certificados no estado (passado para CertificatesForm)
   const setCertificados = (certificados) => {
     setFormData(prev => ({ ...prev, certificados }));
+  };
+
+  // Função para gerar PDF
+  const handleDownloadPDF = () => {
+    const input = resumeRef.current;
+    if (!input) return;
+
+    html2canvas(input, { scale: 2 }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`${formData.nome || 'curriculo'}.pdf`);
+    });
   };
 
   return (
@@ -100,7 +120,13 @@ function App() {
       <LanguagesForm formData={formData} setFormData={setFormData} />
       <KnowledgeForm formData={formData} setFormData={setFormData} />
 
-      <ResumePreview data={formData} />
+      <button onClick={handleDownloadPDF} style={{ marginTop: '1rem' }}>
+        Baixar Currículo (PDF)
+      </button>
+
+      <div ref={resumeRef}>
+        <ResumePreview data={formData} />
+      </div>
     </div>
   );
 }
