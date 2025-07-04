@@ -1,189 +1,84 @@
 import React, { useState, useEffect } from 'react';
 
-function BasicInfoForm({ formData, updateField }) {
-  const [errors, setErrors] = useState({});
-
-  // Função de validação simples
-  const validate = (name, value) => {
-    switch (name) {
-      case 'nome':
-        if (!value.trim()) return 'Nome é obrigatório.';
-        if (value.trim().length < 3) return 'Nome deve ter ao menos 3 caracteres.';
-        return '';
-      case 'email':
-        if (!value.trim()) return 'Email é obrigatório.';
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(value)) return 'Email inválido.';
-        return '';
-      case 'telefone':
-        if (value && value.replace(/\D/g, '').length < 8) return 'Telefone deve ter ao menos 8 dígitos.';
-        return '';
-      case 'dataNascimento':
-        if (value) {
-          const date = new Date(value);
-          if (isNaN(date.getTime())) return 'Data inválida.';
-          if (date > new Date()) return 'Data não pode ser no futuro.';
-        }
-        return '';
-      default:
-        return '';
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const fieldValue = type === 'checkbox' ? checked : value;
-
-    updateField(name, fieldValue);
-
-    const errorMsg = validate(name, fieldValue);
-    setErrors(prev => ({ ...prev, [name]: errorMsg }));
-  };
+function CertificatesForm({ certificados, setCertificados }) {
+  // Inicializa o estado local com os dados do pai ou um array vazio
+  const [certificates, setCertificates] = useState(certificados || []);
 
   useEffect(() => {
-    const newErrors = {};
-    ['nome', 'email', 'telefone', 'dataNascimento'].forEach(field => {
-      newErrors[field] = validate(field, formData[field]);
-    });
-    setErrors(newErrors);
-  }, [formData]);
+    setCertificados(certificates);
+  }, [certificates, setCertificados]);
+
+  const handleChange = (index, field, value) => {
+    const newCertificates = [...certificates];
+    newCertificates[index][field] = value;
+    setCertificates(newCertificates);
+  };
+
+  const handleAdd = () => {
+    setCertificates([...certificates, { nomeCertificado: '', emissor: '', anoCertificado: '', imagemCertificado: null }]);
+  };
+
+  const handleRemove = (index) => {
+    const newCertificates = certificates.filter((_, i) => i !== index);
+    setCertificates(newCertificates);
+  };
+
+  const handleFileChange = (index, file) => {
+    const newCertificates = [...certificates];
+    newCertificates[index].imagemCertificado = file ? URL.createObjectURL(file) : null;
+    setCertificates(newCertificates);
+  };
 
   return (
-    <section aria-labelledby="basic-info-title">
-      <h2 id="basic-info-title">Informações Básicas</h2>
-      <form className="form-section" noValidate>
-        <label htmlFor="nome">
-          Nome Completo:
-          <input
-            type="text"
-            id="nome"
-            name="nome"
-            value={formData.nome}
-            onChange={handleChange}
-            aria-describedby="nome-error"
-            aria-invalid={!!errors.nome}
-            aria-required="true"
-          />
-        </label>
-        {errors.nome && (
-          <small
-            id="nome-error"
-            style={{ color: 'red' }}
-            role="alert"
-            aria-live="assertive"
-          >
-            {errors.nome}
-          </small>
-        )}
-
-        <label htmlFor="email">
-          E-mail:
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            aria-describedby="email-error"
-            aria-invalid={!!errors.email}
-            aria-required="true"
-          />
-        </label>
-        {errors.email && (
-          <small
-            id="email-error"
-            style={{ color: 'red' }}
-            role="alert"
-            aria-live="assertive"
-          >
-            {errors.email}
-          </small>
-        )}
-
-        <label htmlFor="telefone">
-          Telefone:
-          <input
-            type="tel"
-            id="telefone"
-            name="telefone"
-            value={formData.telefone}
-            onChange={handleChange}
-            aria-describedby="telefone-error"
-            aria-invalid={!!errors.telefone}
-          />
-        </label>
-        {errors.telefone && (
-          <small
-            id="telefone-error"
-            style={{ color: 'red' }}
-            role="alert"
-            aria-live="assertive"
-          >
-            {errors.telefone}
-          </small>
-        )}
-
-        <label htmlFor="linkedin">
-          LinkedIn:
-          <input
-            type="url"
-            id="linkedin"
-            name="linkedin"
-            value={formData.linkedin}
-            onChange={handleChange}
-            placeholder="https://linkedin.com/in/seu-perfil"
-          />
-        </label>
-
-        <label htmlFor="dataNascimento">
-          Data de Nascimento:
-          <input
-            type="date"
-            id="dataNascimento"
-            name="dataNascimento"
-            value={formData.dataNascimento}
-            onChange={handleChange}
-            aria-describedby="dataNascimento-error"
-            aria-invalid={!!errors.dataNascimento}
-          />
-        </label>
-        {errors.dataNascimento && (
-          <small
-            id="dataNascimento-error"
-            style={{ color: 'red' }}
-            role="alert"
-            aria-live="assertive"
-          >
-            {errors.dataNascimento}
-          </small>
-        )}
-
-        <fieldset>
-          <legend>Disponibilidade</legend>
-          <div>
+    <section>
+      <h2>Certificados</h2>
+      {certificates.length === 0 && <p>Nenhum certificado adicionado.</p>}
+      {certificates.map((cert, i) => (
+        <form key={i} className="form-section" onSubmit={e => e.preventDefault()}>
+          <label>
+            Nome do Certificado:
             <input
-              type="checkbox"
-              id="disponibilidadeMudanca"
-              name="disponibilidadeMudanca"
-              checked={formData.disponibilidadeMudanca || false}
-              onChange={handleChange}
+              type="text"
+              value={cert.nomeCertificado}
+              onChange={e => handleChange(i, 'nomeCertificado', e.target.value)}
             />
-            <label htmlFor="disponibilidadeMudanca">Disponível para mudanças</label>
-          </div>
-          <div>
+          </label>
+          <label>
+            Emitido por:
             <input
-              type="checkbox"
-              id="disponibilidadeViagem"
-              name="disponibilidadeViagem"
-              checked={formData.disponibilidadeViagem || false}
-              onChange={handleChange}
+              type="text"
+              value={cert.emissor}
+              onChange={e => handleChange(i, 'emissor', e.target.value)}
             />
-            <label htmlFor="disponibilidadeViagem">Disponível para viagens</label>
-          </div>
-        </fieldset>
-      </form>
+          </label>
+          <label>
+            Ano:
+            <input
+              type="text"
+              value={cert.anoCertificado}
+              onChange={e => handleChange(i, 'anoCertificado', e.target.value)}
+            />
+          </label>
+          <label>
+            Upload do Certificado:
+            <input
+              type="file"
+              accept="image/*"
+              onChange={e => handleFileChange(i, e.target.files[0])}
+            />
+          </label>
+
+          <button type="button" onClick={() => handleRemove(i)}>
+            Remover Certificado
+          </button>
+        </form>
+      ))}
+
+      <button type="button" onClick={handleAdd}>
+        Adicionar Certificado
+      </button>
     </section>
   );
 }
 
-export default BasicInfoForm;
+export default CertificatesForm;
