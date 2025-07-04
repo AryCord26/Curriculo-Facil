@@ -22,83 +22,63 @@ function EducationForm({ formData, setFormData }) {
     setFormData(prev => ({ ...prev, formacoes: newFormacoes }));
   };
 
-  const buttonStyle = {
-    borderRadius: '8px',
-    padding: '0.7rem 1.2rem',
-    fontSize: '1rem',
-    cursor: 'pointer',
-    border: 'none',
-    transition: 'background-color 0.3s ease',
-  };
-
-  const addButtonStyle = {
-    ...buttonStyle,
-    backgroundColor: 'var(--cor-principal)',
-    color: '#fff',
-    marginTop: '1rem',
-  };
-
-  const removeButtonStyle = {
-    ...buttonStyle,
-    backgroundColor: '#d9534f',
-    color: '#fff',
-    marginTop: '0.5rem',
-  };
-
   return (
     <section>
       <h2>Formação Acadêmica</h2>
+
       {formacoes.length === 0 && <p>Nenhuma formação adicionada.</p>}
 
       {formacoes.map((formacao, i) => (
-        <form key={i} className="form-section">
-          <label>
+        <fieldset key={i} className="form-section" style={{ border: '1px solid var(--cor-borda)', padding: '1rem', borderRadius: '8px' }}>
+          <legend>Formação #{i + 1}</legend>
+
+          <label htmlFor={`curso-${i}`}>
             Curso:
             <input
               type="text"
+              id={`curso-${i}`}
               name="curso"
               value={formacao.curso}
               onChange={(e) => handleChange(i, e)}
+              placeholder="Ex: Bacharelado em Ciência da Computação"
             />
           </label>
-          <label>
+
+          <label htmlFor={`instituicao-${i}`}>
             Instituição:
             <input
               type="text"
+              id={`instituicao-${i}`}
               name="instituicao"
               value={formacao.instituicao}
               onChange={(e) => handleChange(i, e)}
+              placeholder="Nome da universidade ou escola"
             />
           </label>
-          <label>
+
+          <label htmlFor={`anoConclusao-${i}`}>
             Ano de Conclusão:
             <input
               type="text"
+              id={`anoConclusao-${i}`}
               name="anoConclusao"
               value={formacao.anoConclusao}
               onChange={(e) => handleChange(i, e)}
+              placeholder="Ex: 2025"
             />
           </label>
 
           <button
             type="button"
             onClick={() => removeFormation(i)}
-            style={removeButtonStyle}
-            onMouseOver={e => e.currentTarget.style.backgroundColor = '#c9302c'}
-            onMouseOut={e => e.currentTarget.style.backgroundColor = '#d9534f'}
+            className="btn-remove"
           >
-            Remover
+            Remover Formação
           </button>
-        </form>
+        </fieldset>
       ))}
 
-      <button
-        type="button"
-        onClick={addFormation}
-        style={addButtonStyle}
-        onMouseOver={e => e.currentTarget.style.backgroundColor = '#356ac3'}
-        onMouseOut={e => e.currentTarget.style.backgroundColor = 'var(--cor-principal)'}
-      >
+      <button type="button" onClick={addFormation} className="btn-add-formation">
         Adicionar Formação
       </button>
     </section>
