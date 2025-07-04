@@ -8,6 +8,9 @@ function ResumePreview({ data }) {
     email,
     telefone,
     linkedin,
+    dataNascimento,
+    disponibilidadeMudanca,
+    disponibilidadeViagem,
     objetivo,
     formacoes = [],
     experienciasProfissionais = [],
@@ -18,12 +21,27 @@ function ResumePreview({ data }) {
     conhecimentos = {},
   } = data;
 
+  // Formata data de nascimento para DD/MM/AAAA
+  const formatDate = (dateStr) => {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    if (isNaN(d)) return '';
+    return d.toLocaleDateString('pt-BR');
+  };
+
   return (
     <div className="resume-preview">
       <h2>{nome || 'Seu Nome Aqui'}</h2>
       <p>
         Email: {email || 'email@exemplo.com'} | Tel: {telefone || '(xx) xxxxx-xxxx'} | LinkedIn: {linkedin || 'linkedin.com/in/seu-nome'}
       </p>
+      {(dataNascimento || disponibilidadeMudanca || disponibilidadeViagem) && (
+        <p>
+          {dataNascimento && <>Data de nascimento: {formatDate(dataNascimento)} | </>}
+          {disponibilidadeMudanca && <>Disponível para mudanças | </>}
+          {disponibilidadeViagem && <>Disponível para viagens</>}
+        </p>
+      )}
 
       {objetivo && (
         <>
