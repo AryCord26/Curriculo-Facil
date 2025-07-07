@@ -1,6 +1,5 @@
 # Criador de Currículo React
 
-![License](https://img.shields.io/badge/license-MIT-green)  
 ![React](https://img.shields.io/badge/React-v18.2-blue)  
 ![Vercel](https://img.shields.io/badge/Deploy-Vercel-purple)
 
